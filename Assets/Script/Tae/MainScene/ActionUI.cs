@@ -4,6 +4,7 @@ using System.Collections;
 
 public class ActionUI : MonoBehaviour
 {
+
     public RectTransform phoneRect; //휴대폰 이미지
     public GameObject backGroundPanel; //패널
 
