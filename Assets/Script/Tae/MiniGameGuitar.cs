@@ -37,13 +37,14 @@ public class MiniGameGuitar : MonoBehaviour
     public float maxGauge = 100;
     public Text GaugeText;
 
+    public Text FirstText;
+    private float FirstTime = 3f;
+    private bool FirstRunning = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentScore = 0f;
-        isTimerRunning = false;
-        StartRound();
+        StartCoroutine(FirstStart());
     }
 
     // Update is called once per frame
@@ -65,6 +66,19 @@ public class MiniGameGuitar : MonoBehaviour
             }
             
         }
+
+        if(FirstRunning)
+        {
+            FirstTime -= Time.deltaTime;
+            if(FirstTime <= 0)
+            {
+                FirstText.text = "시작!";
+            }
+            else
+            {
+                FirstText.text = "" + (int)FirstTime;
+            }
+        }
         timerText.text = "" + (int)totalGameTime;
     }
     public void ShuffleCode()
@@ -80,6 +94,7 @@ public class MiniGameGuitar : MonoBehaviour
 
     void StartRound()
     {
+
         StopAllCoroutines();
 
         // 라운드 끝나면 종료
@@ -129,6 +144,18 @@ public class MiniGameGuitar : MonoBehaviour
             // ★ 생성된 오브젝트를 리스트에 저장 (나중에 숨기거나 다시 켜기 위해)
             spawnedImageObjects.Add(imgObj);
         }
+    }
+
+    IEnumerator FirstStart()
+    {
+        
+        FirstRunning = true;
+        yield return new WaitForSeconds(4f);
+        FirstRunning = false;
+        FirstText.gameObject.SetActive(false);
+        currentScore = 0f;
+        isTimerRunning = false;
+        StartRound();
     }
 
     IEnumerator ShowQuestionRoutine()

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6b3de6950df05444f9b6c36b46cd26b9
+guid: 3d29f506091b2bd4cb1c25375010e7a8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4040419468997218988
-    second: "\uC544\uCE68_0"
+      213: 5827518609549048936
+    second: clock_noon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\uC544\uCE68_0"
+      name: clock_noon_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 225
-        height: 225
+        x: 17
+        y: 20
+        width: 92
+        height: 92
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ca2d6299914721830800000000000000
-      internalID: 4040419468997218988
+      spriteID: 86c3624cc418fd050800000000000000
+      internalID: 5827518609549048936
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\uC544\uCE68_0": 4040419468997218988
+      clock_noon_0: 5827518609549048936
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
