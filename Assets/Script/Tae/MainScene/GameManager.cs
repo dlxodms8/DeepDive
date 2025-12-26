@@ -25,7 +25,9 @@ public class GameManager : MonoBehaviour
     public float currentCompositionGauge = 0f;
     public float currentPracticeGauge = 0f;
 
-
+    [Header("게임 날짜 및 시간")]
+    public float D_Day = 14f;
+    public float D_Time = 1f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
