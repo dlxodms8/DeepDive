@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Drawing.Colors;
 using System.Threading;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class MiniGameGuitar : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class MiniGameGuitar : MonoBehaviour
     public float currentScore = 0f; // 점수
 
     public Text timerText; // 남은 시간 텍스트
-    private float totalGameTime = 30f;  // 전체 제한 시간
+    private float totalGameTime = 5f;  // 전체 제한 시간
     private bool isTimerRunning = false; //정답 보여줄 때 시간 안흐름
 
     //결과창
@@ -38,13 +39,15 @@ public class MiniGameGuitar : MonoBehaviour
     public Text GaugeText;
 
     public Text FirstText;
-    private float FirstTime = 3f;
+    private float FirstTime = 3.5f;
     private bool FirstRunning = false;
+    private bool InputButton = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         StartCoroutine(FirstStart());
+        InputButton = true;
     }
 
     // Update is called once per frame
@@ -232,7 +235,26 @@ public class MiniGameGuitar : MonoBehaviour
 
     public void Exit()
     {
-        GameManager.Instance.UseTime();
-        SceneManager.LoadScene("SampleScene");
+        if (InputButton)
+        {
+            InputButton = false;
+            GameManager.Instance.mainSceneName = "SampleScene";
+            //SceneManager.LoadScene("SampleScene");
+
+            if (GameManager.Instance != null && GameManager.Instance.screenFader != null)
+            {
+                // 1. "화면 좀 가려주세요(PlayTransition)"라고 부탁합니다.
+                GameManager.Instance.screenFader.PlayTransition(() =>
+                {
+                    // 2. 이 괄호 안의 내용은 "화면이 완전히 암전된 후"에 실행됩니다.
+                    SceneManager.LoadScene("SampleScene");
+                });
+            }
+            else
+            {
+                // 만약 매니저가 없거나 페이더가 없으면 그냥 바로 이동 (비상용)
+                SceneManager.LoadScene("SampleScene");
+            }
+        }
     }
 }
