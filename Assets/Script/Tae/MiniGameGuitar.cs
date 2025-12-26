@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.ShaderGraph.Drawing.Colors;
 using System.Threading;
+using UnityEngine.SceneManagement;
 
 public class MiniGameGuitar : MonoBehaviour
 {
@@ -27,12 +28,20 @@ public class MiniGameGuitar : MonoBehaviour
     public float currentScore = 0f; // 점수
 
     public Text timerText; // 남은 시간 텍스트
-    public float totalGameTime = 60f;  // 전체 제한 시간
+    private float totalGameTime = 30f;  // 전체 제한 시간
     private bool isTimerRunning = false; //정답 보여줄 때 시간 안흐름
+
+    //결과창
+    public Image Practicegauge;
+    public GameObject backGroundPanel;
+    public float maxGauge = 100;
+    public Text GaugeText;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        currentScore = 0f;
         isTimerRunning = false;
         StartRound();
     }
@@ -51,7 +60,7 @@ public class MiniGameGuitar : MonoBehaviour
                 isTimerRunning = false;
                 isInputActive = false;
                 if (timerText) timerText.text = "0";
-                Debug.Log("시간 종료! 게임 오버");
+                GameOver();
                 return;
             }
             
@@ -124,6 +133,8 @@ public class MiniGameGuitar : MonoBehaviour
 
     IEnumerator ShowQuestionRoutine()
     {
+        isTimerRunning = false;
+
         foreach (GameObject obj in spawnedImageObjects)
         {
             obj.SetActive(true);
@@ -176,6 +187,25 @@ public class MiniGameGuitar : MonoBehaviour
     {
         isTimerRunning = false;
         isInputActive = false;
-        Debug.Log("축하합니다! 모든 라운드 종료. 남은 시간: " + totalGameTime);
+        Result();
+    }
+
+    void GameOver()
+    {
+        Result();
+    }
+
+    public void Result()
+    {
+        backGroundPanel.SetActive(true);
+        GameManager.Instance.AddGauge("Practice", currentScore);
+        Practicegauge.fillAmount = GameManager.Instance.currentPracticeGauge / maxGauge;
+        GaugeText.text = GameManager.Instance.currentPracticeGauge + " / " + maxGauge;
+    }
+
+    public void Exit()
+    {
+        GameManager.Instance.UseTime();
+        SceneManager.LoadScene("SampleScene");
     }
 }

@@ -1,6 +1,7 @@
-using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.AdaptivePerformance;
+using UnityEngine.UI;
 
 public class ActionUI : MonoBehaviour
 {

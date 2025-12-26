@@ -206,6 +206,7 @@ GameObject:
   - component: {fileID: 458078107}
   - component: {fileID: 458078106}
   - component: {fileID: 458078105}
+  - component: {fileID: 458078108}
   m_Layer: 5
   m_Name: Composition
   m_TagString: Untagged
@@ -276,7 +277,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 458078106}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 458078108}
+        m_TargetAssemblyTypeName: ActionButton, Assembly-CSharp
+        m_MethodName: ActionClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &458078106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,6 +328,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 458078103}
   m_CullTransparentMesh: 1
+--- !u!114 &458078108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458078103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb478ad8798a8d48bb22e746fadde26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActionButton
+  actionID: 2
 --- !u!1 &495668228
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,8 +351,6 @@ GameObject:
   m_Component:
   - component: {fileID: 495668232}
   - component: {fileID: 495668231}
-  - component: {fileID: 495668230}
-  - component: {fileID: 495668229}
   m_Layer: 0
   m_Name: Script
   m_TagString: Untagged
@@ -334,42 +358,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &495668229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495668228}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 985fba3582672a84793c9ee5d18264c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ActionUI
-  phoneRect: {fileID: 1438560672}
-  backGroundPanel: {fileID: 1759923437}
-  animationTime: 0.8
-  showPosY: 350
-  hidePosY: -350
---- !u!114 &495668230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495668228}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2768889455ff9a4eadc5f88adc1f19a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GaugeUI
-  Dategauge: {fileID: 2039439450}
-  Snsgauge: {fileID: 377184657}
-  Compositiongauge: {fileID: 1972777376}
-  Practicegauge: {fileID: 777210175}
-  maxGauge: 100
-  fillAmount: 10
-  backGroundPanel: {fileID: 0}
 --- !u!114 &495668231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,8 +374,15 @@ MonoBehaviour:
   currentSnsGauge: 0
   currentCompositionGauge: 0
   currentPracticeGauge: 0
-  D_Day: 14
-  D_Time: 1
+  D_Day: 15
+  D_Time: 0
+  timeImage: {fileID: 748975493}
+  timeIcon:
+  - {fileID: 4040419468997218988, guid: 6b3de6950df05444f9b6c36b46cd26b9, type: 3}
+  - {fileID: -4474384974908196837, guid: 2a7397ec9b04e4849acc7614f99de70c, type: 3}
+  - {fileID: -5554629334150186050, guid: c0bdf09afcd304945a351cc34666d859, type: 3}
+  dayText: {fileID: 1416264182}
+  maxGauge: 100
 --- !u!4 &495668232
 Transform:
   m_ObjectHideFlags: 0
@@ -946,6 +941,7 @@ GameObject:
   - component: {fileID: 699598120}
   - component: {fileID: 699598119}
   - component: {fileID: 699598118}
+  - component: {fileID: 699598121}
   m_Layer: 5
   m_Name: Date
   m_TagString: Untagged
@@ -1016,7 +1012,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 699598119}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 699598121}
+        m_TargetAssemblyTypeName: ActionButton, Assembly-CSharp
+        m_MethodName: ActionClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &699598119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1055,6 +1063,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 699598116}
   m_CullTransparentMesh: 1
+--- !u!114 &699598121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 699598116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb478ad8798a8d48bb22e746fadde26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActionButton
+  actionID: 0
 --- !u!1 &748975491
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,7 +1088,7 @@ GameObject:
   - component: {fileID: 748975494}
   - component: {fileID: 748975493}
   m_Layer: 5
-  m_Name: Clock
+  m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1996,7 +2017,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'D-14
+  m_Text: 'D-15
 
 '
 --- !u!222 &1416264183
@@ -2125,6 +2146,7 @@ GameObject:
   - component: {fileID: 1537953743}
   - component: {fileID: 1537953742}
   - component: {fileID: 1537953741}
+  - component: {fileID: 1537953744}
   m_Layer: 5
   m_Name: Sns
   m_TagString: Untagged
@@ -2195,7 +2217,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1537953742}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1537953744}
+        m_TargetAssemblyTypeName: ActionButton, Assembly-CSharp
+        m_MethodName: ActionClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1537953742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2234,6 +2268,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1537953739}
   m_CullTransparentMesh: 1
+--- !u!114 &1537953744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1537953739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb478ad8798a8d48bb22e746fadde26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActionButton
+  actionID: 1
 --- !u!1 &1605689418
 GameObject:
   m_ObjectHideFlags: 0
@@ -2537,6 +2584,7 @@ GameObject:
   - component: {fileID: 1923682685}
   - component: {fileID: 1923682684}
   - component: {fileID: 1923682683}
+  - component: {fileID: 1923682686}
   m_Layer: 5
   m_Name: Practice
   m_TagString: Untagged
@@ -2607,7 +2655,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1923682684}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1923682686}
+        m_TargetAssemblyTypeName: ActionButton, Assembly-CSharp
+        m_MethodName: ActionClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1923682684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2646,6 +2706,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1923682681}
   m_CullTransparentMesh: 1
+--- !u!114 &1923682686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923682681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb478ad8798a8d48bb22e746fadde26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ActionButton
+  actionID: 3
 --- !u!1 &1937139974
 GameObject:
   m_ObjectHideFlags: 0

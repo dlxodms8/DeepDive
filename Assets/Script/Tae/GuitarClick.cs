@@ -10,7 +10,7 @@ public class GuitarClick : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        MiniGameGuitar = GameObject.Find("BouttonContainer").GetComponent<MiniGameGuitar>();
+        MiniGameGuitar = GameObject.Find("Canvas").GetComponent<MiniGameGuitar>();
     }
 
     // Update is called once per frame
