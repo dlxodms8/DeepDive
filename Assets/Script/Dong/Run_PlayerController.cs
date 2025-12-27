@@ -1,104 +1,109 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(CapsuleCollider2D))]
 public class Run_PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float jumpForce = 12f;  // 점프 힘을 더 크게
-    public float jumpDuration = 0.2f; // 점프 높이를 빠르게 올리기 위해 점프 힘을 일정 시간 동안 강하게 유지
+    public float jumpForce = 12f;
 
     [Header("Sliding Settings")]
-    public float slideYOffset = 2.0f;  // 슬라이딩 시 내려갈 깊이
-    public float slideDuration = 1f;   // 슬라이딩을 빠르게 종료하려면 짧게 설정
+    public float slideSpeed = 5f;
+    public float slideYDownPos = 0.5f;
+    private float defaultY;
 
     [Header("References")]
     public HealthManager healthManager;
-
+    public Sprite slidingDamageSprite;
+    private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
     private Animator anim;
     private CapsuleCollider2D capsuleCollider;
+
+    private Vector2 originalColliderSize;
     private bool isGrounded;
     private bool isSliding = false;
     private bool isJumping = false;
     private bool isInvincible = false;
     public float invincibilityDuration = 1.5f;
+    private bool isDamaged = false;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        originalColliderSize = capsuleCollider.size;
+        defaultY = transform.position.y;
     }
 
     void Update()
     {
-        // 점프 입력 (땅에 있을 때만 점프)
+        if (isDamaged) return;
+
+        // 점프
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isSliding)
         {
             Jump();
         }
 
-        // 슬라이딩 입력 (LeftShift 키를 누르고 있을 때만 슬라이딩 유지)
-        if (Input.GetKey(KeyCode.LeftShift) && isGrounded && !isJumping && !isSliding)
+        // 슬라이딩 시작 (Shift를 누르는 순간)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && !isJumping && !isSliding)
         {
-            StartCoroutine(Slide());
-        }
-
-        // 기본적으로 뛰는 애니메이션
-        if (!isSliding && isGrounded && !isJumping)
-        {
-            anim.Play("Run");  // 뛰는 애니메이션을 계속 유지
+            StartCoroutine(SlideRoutine());
         }
     }
 
     void Jump()
     {
-        rb.linearVelocity = Vector2.zero;  // 점프 전 속도 초기화
+        rb.linearVelocity = Vector2.zero;
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         isGrounded = false;
         isJumping = true;
-        //anim.SetTrigger("Jump");
-
-        // 빠른 반응을 위한 점프 지속 시간 조정
-        StartCoroutine(JumpDuration());
+        
     }
 
-    IEnumerator JumpDuration()
-    {
-        // 짧은 시간 동안 점프 힘을 계속해서 증가시켜 빠른 반응을 구현
-        yield return new WaitForSeconds(jumpDuration);
-        isJumping = false;
-    }
-
-    IEnumerator Slide()
+    IEnumerator SlideRoutine()
     {
         isSliding = true;
 
-        // 1. 현재 Y축 높이 저장
-        float originalY = transform.position.y;
-
-        // 2. 슬라이딩 애니메이션 시작
+        // ✅ 단일 트리거 "Slide" 호출
         anim.SetTrigger("Slide");
 
-        // 3. 캡슐 콜라이더의 세로 길이를 줄임 (슬라이딩 상태)
-        capsuleCollider.size = new Vector2(capsuleCollider.size.x, capsuleCollider.size.y / 2);  // 세로 길이 절반으로 줄이기
+        capsuleCollider.size = new Vector2(originalColliderSize.x, originalColliderSize.y * 0.5f);
+        float targetY = defaultY - slideYDownPos;
 
-        // 4. 슬라이딩 상태 유지 - Y축 감소
-        float slideSpeed = 5f;  // 슬라이딩 속도를 빠르게 하기 위해 이동 속도 조정
+        // Shift를 꾹 누르고 있는 동안 루프 유지
         while (Input.GetKey(KeyCode.LeftShift))
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y - slideSpeed * Time.deltaTime, transform.position.z);
-            yield return null;  // 슬라이딩 중에는 계속 기다림
+            if (isDamaged) break;
+
+            if (transform.position.y > targetY)
+            {
+                transform.position = new Vector3(transform.position.x, transform.position.y - slideSpeed * Time.deltaTime, transform.position.z);
+            }
+            yield return null;
         }
 
-        // 5. 슬라이딩 종료 후 원래 Y축 위치로 복원
-        transform.position = new Vector3(transform.position.x, originalY, transform.position.z);
+        // Shift를 떼거나 데미지를 입었을 때 처리
+        if (!isDamaged)
+        {
+            ExitSlide();
+        }
+    }
 
-        // 6. 캡슐 콜라이더의 세로 길이를 원래대로 복원
-        capsuleCollider.size = new Vector2(capsuleCollider.size.x, capsuleCollider.size.y * 2);  // 원래 세로 길이로 복원
+    void ExitSlide()
+    {
+        // 원래 높이로 복구
+        transform.position = new Vector3(transform.position.x, defaultY, transform.position.z);
+        capsuleCollider.size = originalColliderSize;
 
-        // 7. 뛰는 애니메이션으로 복귀
-        //anim.SetTrigger("Run");
+        // ✅ 다시 "Slide" 트리거를 작동시켜 Run 상태로 전이하거나, 
+        // 애니메이터 설정에 따라 "Run" 트리거를 명시적으로 호출합니다.
+        anim.SetTrigger("Run");
 
         isSliding = false;
     }
@@ -108,7 +113,8 @@ public class Run_PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
-            isJumping = false;  // 점프가 끝났으면 isJumping을 false로 설정
+            isJumping = false;
+            defaultY = transform.position.y; // 현재 지면 높이 갱신
         }
     }
 
@@ -116,24 +122,75 @@ public class Run_PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("Obstacle") && !isInvincible)
         {
-            if (healthManager != null)
-            {
-                healthManager.TakeDamage();
-                StartCoroutine(BecomeInvincible());
-            }
+            HandleDamage();
             Destroy(collision.gameObject);
         }
+    }
+
+    void HandleDamage()
+    {
+        if (healthManager != null) healthManager.TakeDamage();
+        StartCoroutine(BecomeInvincible());
+
+        if (isSliding)
+            StartCoroutine(SlideDamageEffect());
+        else
+            StartCoroutine(RunDamageEffect());
+    }
+
+    IEnumerator RunDamageEffect()
+    {
+        isDamaged = true;
+        anim.SetTrigger("Run_Damage");
+        yield return new WaitForSeconds(1.0f);
+        isDamaged = false;
+        anim.SetTrigger("Run");
+    }
+
+    IEnumerator SlideDamageEffect()
+    {
+        isDamaged = true;
+        isSliding = false;
+
+        anim.enabled = false;
+        spriteRenderer.sprite = slidingDamageSprite;
+
+        yield return new WaitForSeconds(0.5f);
+
+        anim.enabled = true;
+        isDamaged = false;
+
+        ExitSlide();
     }
 
     IEnumerator BecomeInvincible()
     {
         isInvincible = true;
-        yield return new WaitForSeconds(invincibilityDuration);
+        float timer = 0;
+        while (timer < invincibilityDuration)
+        {
+            spriteRenderer.color = new Color(1, 1, 1, 0.5f);
+            yield return new WaitForSeconds(0.1f);
+            spriteRenderer.color = Color.white;
+            yield return new WaitForSeconds(0.1f);
+            timer += 0.2f;
+        }
         isInvincible = false;
     }
 
-    public void OnTimeUp()
+    public void OnTimeUp() 
     {
-        Debug.Log("게임 오버!");
+        // 1️⃣ 입력 차단용 상태 변경
+        isDamaged = true;
+        isSliding = false;
+        isJumping = false;
+
+        // 2️⃣ 물리 이동 완전 정지
+        rb.linearVelocity = Vector2.zero;
+        rb.simulated = false;
+
+        // 3️⃣ 애니메이션 정지 (선택)
+        if (anim != null)
+            anim.enabled = false;
     }
 }

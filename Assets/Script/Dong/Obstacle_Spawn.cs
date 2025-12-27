@@ -1,17 +1,17 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    [Header("Àå¾Ö¹° ÇÁ¸®ÆÕ")]
+    [Header("ì¥ì• ë¬¼ í”„ë¦¬íŒ¹")]
     public GameObject obstaclePrefab1;
     public GameObject obstaclePrefab2;
 
-    [Header("»ı¼º À§Ä¡ ¼³Á¤ (Unity Inspector¿¡¼­ Á¶Á¤)")]
-    public float spawnX = 9f;          // »ı¼ºµÉ XÃà À§Ä¡
-    public float prefab1Y = 3f;        // Ã¹ ¹øÂ° Àå¾Ö¹°(°øÁß)ÀÇ YÃà À§Ä¡
-    public float prefab2Y = -2f;       // µÎ ¹øÂ° Àå¾Ö¹°(¹Ù´Ú)ÀÇ YÃà À§Ä¡
+    [Header("ìƒì„± ìœ„ì¹˜")]
+    public float spawnX = 9f;
+    public float prefab1Y = 3f;
+    public float prefab2Y = -2f;
 
-    [Header("¼ÒÈ¯ °£°İ ¼³Á¤")]
+    [Header("ì†Œí™˜ ê°„ê²©")]
     public float minInterval = 1.0f;
     public float maxInterval = 3.0f;
 
@@ -25,6 +25,20 @@ public class ObstacleSpawner : MonoBehaviour
 
     void Update()
     {
+        // 1. ë§¤ë‹ˆì €ê°€ ì—†ìœ¼ë©´ ë™ì‘ ì•ˆ í•¨
+        if (run_Manager.Instance == null) return;
+
+        // 2. ê²Œì„ì´ ì¢…ë£Œë˜ì—ˆê±°ë‚˜ ì •ì§€ ìƒíƒœë¼ë©´ ë™ì‘ ì•ˆ í•¨
+        if (run_Manager.Instance.IsGameStopped()) return;
+
+        // 3. âœ… ë‚¨ì€ ì‹œê°„ì´ 13ì´ˆ ì´í•˜ì´ë©´ ì¥ì• ë¬¼ ìƒì„±ì„ ì¤‘ë‹¨
+        // run_Managerì— ì—°ê²°ëœ timeBarì—ì„œ ì‹¤ì‹œê°„ ë‚¨ì€ ì‹œê°„ì„ ì²´í¬í•©ë‹ˆë‹¤.
+        if (run_Manager.Instance.timeBar.GetTimeLeft() <= 9f)
+        {
+            return;
+        }
+
+        // --- ì¥ì• ë¬¼ ìƒì„± íƒ€ì´ë¨¸ ë¡œì§ ---
         timer += Time.deltaTime;
 
         if (timer >= targetInterval)
@@ -41,7 +55,6 @@ public class ObstacleSpawner : MonoBehaviour
         GameObject selectedPrefab;
         float finalY;
 
-        // ·£´ıÇÏ°Ô ¼±ÅÃµÈ ÀÎµ¦½º¿¡ µû¶ó Y°ª¸¸ ´Ù¸£°Ô ¼³Á¤
         if (randomIndex == 0)
         {
             selectedPrefab = obstaclePrefab1;
@@ -55,7 +68,6 @@ public class ObstacleSpawner : MonoBehaviour
 
         if (selectedPrefab != null)
         {
-            // ÀÎ½ºÆåÅÍ¿¡¼­ ¼³Á¤ÇÑ spawnX¿Í °¢ÀÚÀÇ Y°ªÀ» »ç¿ëÇØ »ı¼º
             Vector3 spawnPosition = new Vector3(spawnX, finalY, 0f);
             Instantiate(selectedPrefab, spawnPosition, Quaternion.identity);
         }
