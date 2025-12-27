@@ -2233,6 +2233,7 @@ MonoBehaviour:
   Composition: {fileID: 458078103}
   Practice: {fileID: 1923682681}
   Ending: {fileID: 620298774}
+  phoneButton: {fileID: 1025353588}
 --- !u!1 &1028766893
 GameObject:
   m_ObjectHideFlags: 0

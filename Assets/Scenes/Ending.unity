@@ -848,7 +848,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61c297e3e492db244a83fa055f2cf79e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EndingButtonHandler
-  startSceneName: StartScene
+  startSceneName: SampleScene
 --- !u!114 &1892499061
 MonoBehaviour:
   m_ObjectHideFlags: 0

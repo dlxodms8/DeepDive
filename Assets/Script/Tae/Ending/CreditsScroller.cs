@@ -1,4 +1,5 @@
 using TMPro;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement; // 씬 이동을 위해 필요
 
@@ -25,6 +26,7 @@ public class CreditsScroller : MonoBehaviour
 
     void Start()
     {
+        StartCoroutine(StopAndGoRoutine());
         //EndingSetting(GameManager.Instance.EndingNum);
         EndingSetting(EndNum);
     }
@@ -50,6 +52,19 @@ public class CreditsScroller : MonoBehaviour
         {
             EndCredits();
         }
+    }
+
+    IEnumerator StopAndGoRoutine()
+    {
+        // 1. 게임의 모든 움직임을 즉시 정지시킵니다.
+        Time.timeScale = 0f;
+
+        // 2. 정지된 상태로 0.8초(원하는 만큼 조절) 대기합니다.
+        // Time.timeScale이 0일 때는 Realtime을 써야 대기가 가능합니다.
+        yield return new WaitForSecondsRealtime(0.8f);
+
+        // 3. 시간을 다시 1로 돌려놓아야 다음 씬이 정상적으로 작동합니다.
+        Time.timeScale = 1f;
     }
 
     void EndingSetting(int EndingNum)
@@ -83,7 +98,7 @@ public class CreditsScroller : MonoBehaviour
     // 크레딧 종료 시 실행될 함수
     void EndCredits()
     {
-        switch (GameManager.Instance.EndingNum)
+        switch (GameManager.Instance.EndingNum) 
         {
             case 0: //백수 엔딩
                 RestartButton.SetActive(true);
