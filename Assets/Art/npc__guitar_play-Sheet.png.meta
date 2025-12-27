@@ -119,8 +119,8 @@ TextureImporter:
         y: 1
         width: 196
         height: 234
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -141,8 +141,8 @@ TextureImporter:
         y: 3
         width: 196
         height: 230
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -159,12 +159,12 @@ TextureImporter:
       name: npc__guitar_play-Sheet_2
       rect:
         serializedVersion: 2
-        x: 549
-        y: 3
+        x: 554
+        y: 0
         width: 196
         height: 230
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -185,8 +185,8 @@ TextureImporter:
         y: 3
         width: 196
         height: 224
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -207,8 +207,8 @@ TextureImporter:
         y: 3
         width: 196
         height: 232
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -225,7 +225,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 8fdaa1996c0fff44cb64b8321f632e64
     internalID: 0
     vertices: []
     indices: 

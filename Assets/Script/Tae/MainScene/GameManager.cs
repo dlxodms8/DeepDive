@@ -329,7 +329,7 @@ public class GameManager : MonoBehaviour
         if (uniqueActions == 3)
         {
             float dice = Random.Range(0f, 100f);
-            if (dice < 5f) // 5% ´çÃ·
+            if (dice < 25f) // 5% ´çÃ·
             {
                 TriggerPositiveEvent();
             }

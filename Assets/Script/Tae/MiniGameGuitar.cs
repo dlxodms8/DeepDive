@@ -172,17 +172,23 @@ public class MiniGameGuitar : MonoBehaviour
     IEnumerator ShowQuestionRoutine()
     {
         isTimerRunning = false;
+        questionContainer.gameObject.SetActive(true); // 패널은 항상 켜둠
 
+        // 모든 정답지 보이게 설정
         foreach (GameObject obj in spawnedImageObjects)
         {
             obj.SetActive(true);
         }
 
-        questionContainer.gameObject.SetActive(true);
         animatorNPC.SetBool("First", true);
         yield return new WaitForSeconds(3.0f);
 
-        questionContainer.gameObject.SetActive(false);
+        // ★ 수정: 패널을 끄는 대신, 이미지들만 숨김
+        foreach (GameObject obj in spawnedImageObjects)
+        {
+            obj.SetActive(false);
+        }
+
         animatorNPC.SetBool("First", false);
         isInputActive = true;
         isTimerRunning = true;
@@ -190,23 +196,22 @@ public class MiniGameGuitar : MonoBehaviour
 
     public void CodeInput(int code)
     {
-        if(!isInputActive || isRoundClearing)
-        {
-            return;
-        }
+        if (!isInputActive || isRoundClearing) return;
 
         if (questionSequence[inputCodeSum] == code)
         {
-            
             Debug.Log("정답!");
-            spawnedImageObjects[inputCodeSum].SetActive(false);
+
+            // ★ 핵심 수정: 꺼져있던 이미지를 다시 켬!
+            // 원래는 SetActive(false)였던 부분을 true로 바꿉니다.
+            spawnedImageObjects[inputCodeSum].SetActive(true);
 
             inputCodeSum++;
 
-            if(!isRoundClearing && inputCodeSum >= questionSequence.Count)
+            if (!isRoundClearing && inputCodeSum >= questionSequence.Count)
             {
+                // 라운드 클리어 로직 (기존과 동일)
                 isRoundClearing = true;
-
                 animatorPlayer.SetTrigger("Click");
                 animatorNPC.SetTrigger("Good");
                 isTimerRunning = false;
@@ -218,13 +223,9 @@ public class MiniGameGuitar : MonoBehaviour
         }
         else
         {
+            // 틀렸을 때 처리 (기존과 동일)
             isInputActive = false;
-
-            // 2. Bad 애니메이션 실행
             animatorNPC.SetTrigger("Bad");
-            Debug.Log("땡! 틀렸습니다. 라운드 재시작!");
-
-            // 3. ★ 핵심 수정: 바로 StartRound를 하지 않고, 1초(애니메이션 시간) 뒤에 실행합니다.
             Invoke("StartRound", 1.0f);
         }
     }
