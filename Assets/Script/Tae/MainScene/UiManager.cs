@@ -6,6 +6,9 @@ public class UiManager : MonoBehaviour
     public Image myTimeImage;
     public Text myDayText;
 
+    public GameObject myEventPopupPanel; // 팝업창 전체 (패널)
+    public Text myEventTitleText;        // 제목 텍스트
+    public Text myEventDescText;         // 설명 텍스트 
 
     void Start()
     {

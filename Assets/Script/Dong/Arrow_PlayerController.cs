@@ -32,7 +32,7 @@ public class Arrow_PlayerController : MonoBehaviour
     void Update()
     {
         // 시간이 종료되었다면 입력 처리를 하지 않음
-        if (isTimeUp) return;
+        if (ArrowGameManager.Instance.isGameOver) return;
 
         if (arrowManager != null && arrowManager.CanInput)
         {
@@ -109,9 +109,11 @@ public class Arrow_PlayerController : MonoBehaviour
 
         // [수정] 위치 설정: 원래 위치(originPosition)에서 Y축으로 2만큼 내림
         transform.localPosition = originPosition + new Vector3(0, -1f, 0);
-
-        // 실패 스프라이트 적용
-        spriteRenderer.sprite = failSprite;
+        if (ArrowGameManager.Instance.isGameOver && !ArrowGameManager.Instance.isGameclear)
+        {
+            // 실패 스프라이트 적용
+            spriteRenderer.sprite = failSprite;
+        }
 
         // 애니메이터 끄기 (실패 이미지가 유지되도록)
         if (GetComponent<Animator>() != null)

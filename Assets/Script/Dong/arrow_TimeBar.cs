@@ -6,7 +6,6 @@ public class arrow_TimeBar : MonoBehaviour
     public Slider timerSlider;
     public float maxTime = 60f;
     private float timeLeft;
-    private bool isGameOver = false; // 게임 오버 중복 실행 방지
 
     void Start()
     {
@@ -17,23 +16,22 @@ public class arrow_TimeBar : MonoBehaviour
 
     void Update()
     {
-        if (isGameOver) return; // 이미 게임 오버라면 중단
-
-        if (timeLeft > 0)
-        {
-            timeLeft -= Time.deltaTime;
-            timerSlider.value = timeLeft;
-        }
-        else
-        {
-            timeLeft = 0;
-            TimeOver();
-        }
+            // 이미 게임 오버라면 중단
+            if (timeLeft > 0 && !ArrowGameManager.Instance.isGameOver && !ArrowGameManager.Instance.isGameclear)
+            {
+                timeLeft -= Time.deltaTime;
+                timerSlider.value = timeLeft;
+            }
+            else
+            {
+                timeLeft = 0;
+                TimeOver();
+            }
     }
 
     void TimeOver()
     {
-        isGameOver = true;
+        ArrowGameManager.Instance.isGameOver = true;
         Debug.Log("게임 오버!");
 
         // 1. 씬에서 Arro_PlayerController를 찾아서 OnTimeUp 함수 호출

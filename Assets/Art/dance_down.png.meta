@@ -1,22 +1,10 @@
 fileFormatVersion: 2
-guid: 7b794e2c5239ea54c88f04f7f556544d
+guid: 4bd9d86755e3b324ebb587dc1690e2d1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5132584076160631636
-    second: Male_hero_adle_0
-  - first:
-      213: -41917692586420975
-    second: Male_hero_adle_1
-  - first:
-      213: 3109646239365426219
-    second: Male_hero_adle_2
-  - first:
-      213: -8559132538314534262
-    second: Male_hero_adle_3
-  - first:
-      213: 637151926298607734
-    second: Male_hero_adle_4
+      213: -5155870964891618175
+    second: dance_down_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -112,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Male_hero_adle_0
+      name: dance_down_0
       rect:
         serializedVersion: 2
-        x: 20
-        y: 1
-        width: 84
-        height: 116
+        x: 11
+        y: 3
+        width: 463
+        height: 391
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -127,96 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cac7e90f9f565c8b0800000000000000
-      internalID: -5132584076160631636
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Male_hero_adle_1
-      rect:
-        serializedVersion: 2
-        x: 149
-        y: 1
-        width: 83
-        height: 116
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1151597a4141b6ff0800000000000000
-      internalID: -41917692586420975
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Male_hero_adle_2
-      rect:
-        serializedVersion: 2
-        x: 278
-        y: 1
-        width: 82
-        height: 115
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b2c618277cea72b20800000000000000
-      internalID: 3109646239365426219
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Male_hero_adle_3
-      rect:
-        serializedVersion: 2
-        x: 404
-        y: 1
-        width: 84
-        height: 115
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a82564cfd4ad73980800000000000000
-      internalID: -8559132538314534262
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Male_hero_adle_4
-      rect:
-        serializedVersion: 2
-        x: 532
-        y: 1
-        width: 84
-        height: 116
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6700cfa1d4e97d800800000000000000
-      internalID: 637151926298607734
+      spriteID: 18472e5acaaa278b0800000000000000
+      internalID: -5155870964891618175
       vertices: []
       indices: 
       edges: []
@@ -235,11 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Male_hero_adle_0: -5132584076160631636
-      Male_hero_adle_1: -41917692586420975
-      Male_hero_adle_2: 3109646239365426219
-      Male_hero_adle_3: -8559132538314534262
-      Male_hero_adle_4: 637151926298607734
+      dance_down_0: -5155870964891618175
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
