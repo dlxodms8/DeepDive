@@ -2,33 +2,32 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PopupUi : MonoBehaviour
 {
-    [Header("팝업 구성요소 연결")]
-    public GameObject contentPanel; // 팝업창 패널 (부모)
-    public Text titleText;          // 제목
-    public Text descText;           // 설명
-
-    // public Image iconImage; <--- 아이콘 변수 삭제됨
+    [Header("UI 연결")]
+    public GameObject panelRoot; // 팝업창 전체 (부모 패널)
+    public Text titleText;       // 제목
+    public Text descText;        // 설명
 
     void Start()
     {
-        ClosePopup(); // 시작 시 꺼두기
+        // 게임 시작 시 팝업창 숨기기
+        if (panelRoot != null)
+            panelRoot.SetActive(false);
     }
 
-    // ★ 수정됨: 아이콘(Sprite) 매개변수를 없앴습니다.
+    // 팝업 띄우기 (시간 멈춤 없음)
     public void Show(string title, string desc)
     {
         titleText.text = title;
         descText.text = desc;
 
-        // 아이콘 설정 로직 삭제됨
-
-        contentPanel.SetActive(true);
-        Time.timeScale = 0f; // 시간 정지
+        if (panelRoot != null)
+            panelRoot.SetActive(true);
     }
 
-    public void ClosePopup()
+    // 닫기 버튼용 함수
+    public void Close()
     {
-        contentPanel.SetActive(false);
-        Time.timeScale = 1f; // 시간 재생
+        if (panelRoot != null)
+            panelRoot.SetActive(false);
     }
 }

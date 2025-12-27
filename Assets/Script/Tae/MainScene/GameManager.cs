@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     public Text dayText;
 
     public float maxGauge = 100;
-    public string mainSceneName;
+    public string mainSceneName = "MainScene";
 
     [Header("연출")]
     public ScreenFader screenFader; // 페이드 효과 스크립트
@@ -77,14 +77,14 @@ public class GameManager : MonoBehaviour
     public bool isConditionGood = false; // 컨디션 상승 (모든 경험치 +1)
     public bool isLuckyDay = false;      // 긍정 이벤트 (추가 보너스 +2)
     public bool isLove = false;          // 연애 총합 상승(연애 관계 +10)
-    //[Header("일일 알림 팝업 UI")]
-    //public GameObject eventPopupPanel; // 팝업창 전체 (패널)
-    //public Text eventTitleText;        // 제목 텍스트
-    //public Text eventDescText;         // 설명 텍스트
+    
+
     private bool isNewDayStart = false;
 
     public PopupUi uiPrefab;
     private PopupUi uiInstance;
+
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -217,7 +217,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region 돌발이벤트
-    /*//돌발 이벤트
+    //돌발 이벤트
     void CheckAndTriggerEvent(int action)
     {
         // 1. 오늘 이 행동을 몇 번 했는지 카운트
@@ -227,19 +227,16 @@ public class GameManager : MonoBehaviour
             if (history == action) repeatCount++;
         }
 
-        // 2. 기록에 추가 (이번 행동 포함)
+        // 2. 기록에 추가
         dailyActionHistory.Add(action);
 
-        // 3. 확률 설정 (기획서 기준)
-        // 1회차(repeatCount 0) : 0%
-        // 2회차(repeatCount 1) : 15%
-        // 3회차(repeatCount 2이상) : 50%
+        // 3. 확률 설정 (0회:0%, 1회:15%, 2회이상:50%)
         float failChance = 0f;
         if (repeatCount == 1) failChance = 15f;
         else if (repeatCount >= 2) failChance = 50f;
 
-        // 4. 주사위 굴리기 (0 ~ 100)
-        float dice = UnityEngine.Random.Range(0f, 100f);
+        // 4. 주사위 굴리기
+        float dice = Random.Range(0f, 100f);
 
         if (dice < failChance)
         {
@@ -248,21 +245,83 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // 하루가 끝날 때 긍정 이벤트 발생 여부를 체크하는 함수
+    // 실제 페널티 예약 함수
+    void TriggerNegativeEvent(int action)
+    {
+        // 75% 가벼운 페널티 / 25% 무거운 페널티
+        // Random.Range(0, 4)는 0, 1, 2, 3 중 하나. 2가 나올 확률은 25%
+        bool isSevere = (Random.Range(0, 4) == 2);
+
+        switch (action)
+        {
+            case 3: // 기타 연습
+                if (!isSevere)
+                {
+                    Debug.Log("이벤트 예약: 손가락 통증");
+                    nextGuitarPain = true;
+                }
+                else
+                {
+                    Debug.Log("이벤트 예약: 기타줄 파손");
+                    nextGuitarBroken = true;
+                }
+                break;
+
+            case 2: // 작곡
+                if (!isSevere)
+                {
+                    Debug.Log("이벤트 예약: 아이디어 고갈");
+                    nextIdeaDrought = true;
+                }
+                else
+                {
+                    Debug.Log("이벤트 예약: 노트북 다운");
+                    nextLaptopCrash = true;
+                }
+                break;
+
+            case 1: // SNS
+                if (!isSevere)
+                {
+                    Debug.Log("이벤트 예약: 악플 폭주");
+                    nextMaliciousComment = true;
+                }
+                else
+                {
+                    Debug.Log("이벤트 예약: 게시물 삭제");
+                    nextPostDeleted = true;
+                }
+                break;
+
+            case 0: // 데이트
+                if (!isSevere)
+                {
+                    Debug.Log("이벤트 예약: 피로 누적");
+                    nextFatigue = true;
+                }
+                else
+                {
+                    Debug.Log("이벤트 예약: 말다툼 (-5점)");
+                    nextBrawl = true;
+                    // 말다툼은 점수 즉시 차감
+                    // AddGauge("Date", -5f); 
+                }
+                break;
+        }
+    }
+
     void CheckPositiveEvent()
     {
-        // 1. 하루 3번의 행동이 다 찼는지 확인
+        // 1. 하루 3번 행동 미만이면 패스
         if (dailyActionHistory.Count < 3) return;
 
-        // 2. 행동이 모두 다른지 확인 (중복 제거 후 개수 확인)
-        // Distinct(): 리스트에서 중복된 요소를 제거하는 기능
+        // 2. 행동이 모두 다른지 확인 (Distinct로 중복 제거 후 개수 확인)
         int uniqueActions = dailyActionHistory.Distinct().Count();
 
-        // 3. 만약 3개 행동이 모두 다르다면? (개수가 3개면 모두 다른 것)
+        // 3. 3가지 행동이 모두 다르다면 5% 확률 도전
         if (uniqueActions == 3)
         {
-            // 4. 5% 확률 도전
-            float dice = UnityEngine.Random.Range(0f, 100f);
+            float dice = Random.Range(0f, 100f);
             if (dice < 5f) // 5% 당첨
             {
                 TriggerPositiveEvent();
@@ -272,192 +331,134 @@ public class GameManager : MonoBehaviour
 
     void TriggerPositiveEvent()
     {
-        int randomEvent = UnityEngine.Random.Range(0, 3); // 0, 1, 2 중 랜덤
+        int randomEvent = Random.Range(0, 3); // 0, 1, 2 중 하나
 
         switch (randomEvent)
         {
             case 0: // 연애 총합 상승
-
-                AddGauge("Date", 10f); // 즉시 적용
-
+                // 다음날 아침 팝업을 위해 예약 변수를 켭니다.
+                nextLove = true;
+                // 점수도 미리 올려줍니다.
+                AddGauge("Date", 10f); 
                 break;
 
             case 1: // 컨디션 상승
-
-                isConditionGood = true; // 다음 날 적용 플래그 켬
+                // 다음날 아침 적용을 위해 바로 켜지 않고 예약 변수가 없다면...
+                // 여기서는 로직상 isConditionGood을 바로 켜도 되지만, 
+                // "다음날 적용" 원칙을 위해 보통 next 변수를 씁니다.
+                // 일단 기존 변수대로 isConditionGood을 켜두고, 초기화 로직에서 관리합니다.
+                isConditionGood = true;
                 break;
 
-            case 2: // 긍정 이벤트 (추가 보너스)
-
-                isLuckyDay = true; // 다음 날 적용 플래그 켬
+            case 2: // 추가 보너스 (행운의 날)
+                isLuckyDay = true;
                 break;
         }
     }
 
-    // 실제 페널티를 부여하는 함수
-    void TriggerNegativeEvent(int action)
+    void FindAndShowEventUI()
     {
-        // 확률 반반으로 가벼운 페널티 / 무거운 페널티 나눔 (임의 설정)
-        // 기획서에 "손가락 통증"과 "기타줄 파손" 두 가지가 이며 75:25
-        bool isSevere = UnityEngine.Random.Range(0, 4) == 2;
+        // 1. 항상 켜져 있는 'Canvas'를 먼저 찾습니다.
+        GameObject canvas = GameObject.Find("Canvas");
 
-        switch (action)
+        if (canvas == null) return; // 캔버스조차 없으면 중단
+
+        // 2. Canvas의 자식들 중에서 이름으로 찾습니다. (꺼져 있어도 찾을 수 있음!)
+        // ★★★ Hierarchy에 있는 이름과 토씨 하나 틀리지 않고 똑같아야 합니다! ★★★
+        Transform panelTr = canvas.transform.Find("EventBackGroundPanel");
+
+        // (만약 이름을 DailyEventPanel로 하셨다면 위 코드를 "DailyEventPanel"로 고치세요)
+
+        if (panelTr == null) return; // 못 찾았으면 중단
+
+        // 3. 찾은 패널에서 스크립트를 가져옵니다.
+        PopupUi popup = panelTr.GetComponent <PopupUi>();
+
+        if (popup == null) return;
+
+        // 우선순위: 행동불가 > 긍정 > 일반 디버프 순으로 하나만 띄움
+
+        // 1. 행동 불가 (치명적)
+        if (isGuitarBlocked)
         {
-            case 3: // 기타 연습
-                if (!isSevere)
-                {
-                    Debug.Log("이벤트 발생: 손가락 통증! (내일 경험치 절반)");
-                    nextGuitarPain = true;
-                }
-                else
-                {
-                    Debug.Log("이벤트 발생: 기타줄 파손! (내일 연습 불가)");
-                    nextGuitarBroken = true;
-                }
-                break;
-
-            case 2: // 작곡
-                if (!isSevere)
-                {
-                    Debug.Log("이벤트 발생: 아이디어 고갈! (내일 경험치 절반)");
-                    nextIdeaDrought = true;
-                }
-                else
-                {
-                    Debug.Log("이벤트 발생: 노트북 다운! (내일 작곡 불가)");
-                    nextLaptopCrash = true;
-                }
-                break;
-
-            case 1: // SNS
-                if (!isSevere)
-                {
-                    Debug.Log("이벤트 발생: 악플 폭주! (내일 경험치 절반)");
-                    nextMaliciousComment = true;
-                }
-                else
-                {
-                    Debug.Log("이벤트 발생: 게시물 삭제됨! (내일 SNS 불가)");
-                    nextPostDeleted = true;
-                }
-                break;
-
-            case 0: // 데이트
-                if (!isSevere)
-                {
-                    Debug.Log("이벤트 발생: 피로 누적! (미니게임 체력 감소)");
-                    nextFatigue = true;
-                }
-                else
-                {
-                    Debug.Log("이벤트 발생: 말다툼! (관계도 -5)");
-                    nextBrawl = true;
-                    // 말다툼은 즉시 적용
-                    AddGauge("Date", -5f);
-                }
-                break;
+            popup.Show("기타줄 파손!", "오늘 하루\n기타 연습 불가능");
+        }
+        else if (isCompositionBlocked)
+        {
+            popup.Show("노트북 다운!", "오늘 하루\n작곡 불가능");
+        }
+        else if (isSnsBlocked)
+        {
+            popup.Show("게시물 삭제!", "오늘 하루\nSNS 관리 불가능");
+        }
+        // 2. 긍정 이벤트
+        else if (isLove)
+        {
+            popup.Show("연애 총합 상승!", "연인 관계\n10 상승");
+        }
+        else if (isLuckyDay)
+        {
+            popup.Show("행운의 날!", "다음 행동\n경험치 +2");
+        }
+        else if (isConditionGood)
+        {
+            popup.Show("컨디션 상승", "오늘 하루\n경험치 +1");
+        }
+        // 3. 일반 디버프
+        else if (isGuitarPainDay)
+        {
+            popup.Show("손가락 통증!", "오늘 하루\n연습 경험치\n50% 감소");
+        }
+        else if (isIdeaDrought)
+        {
+            popup.Show("아이디어 고갈!", "오늘 하루\n작곡 경험치\n50% 감소");
+        }
+        else if (isMaliciousComment)
+        {
+            popup.Show("악플 폭주!", "오늘 하루\nSNS 경험치\n50% 감소");
+        }
+        else if (isFatigue)
+        {
+            popup.Show("피로 누적!", "오늘 하루\n데이트 체력 감소");
+        }
+        else if (isBrawl)
+        {
+            popup.Show("연인과 말다툼!", "연인 관계\n5 하락");
         }
     }
 
-    //void ShowDailyPopup(string title, string desc)
-    //{
-    //    if (eventPopupPanel == null) return;
+    void ApplyNextDayEffects()
+    {
+        // 1. 하루 행동 기록 초기화
+        dailyActionHistory.Clear();
 
-    //    eventTitleText.text = title;
-    //    eventDescText.text = desc;
-    //    eventPopupPanel.SetActive(true); // 패널 켜기
-    //    Debug.Log("패널켜기작동");
-    //}
+        // 2. 예약된(next) 디버프를 오늘(current)로 적용
+        // (MoveToMiniGame에서 가져온 코드들)
+        isGuitarPainDay = nextGuitarPain;
+        isGuitarBlocked = nextGuitarBroken;
+        isIdeaDrought = nextIdeaDrought;
+        isCompositionBlocked = nextLaptopCrash;
+        isMaliciousComment = nextMaliciousComment;
+        isSnsBlocked = nextPostDeleted;
+        isFatigue = nextFatigue;
+        isBrawl = nextBrawl;
 
-    //public void closePopup()
-    //{
-    //    eventPopupPanel.SetActive(false);
-    //    Time.timeScale = 1f;
-    //}
-    //bool CheckAndShowEventUI()
-    //{
-    //    // 1. 지금 살아있는 UI가 있는지 확인
-    //    if (uiInstance == null)
-    //    {
-    //        // 없으면, 혹시 씬에 숨어있는지 한번 찾아보고
-    //        uiInstance = GameObject.Find("EventBackGroundPanel").GetComponent<PopupUi>();
+        // 3. 예약 변수들은 다시 초기화 (일회성)
+        nextGuitarPain = false; nextGuitarBroken = false;
+        nextIdeaDrought = false; nextLaptopCrash = false;
+        nextMaliciousComment = false; nextPostDeleted = false;
+        nextFatigue = false; nextBrawl = false;
 
-    //        // 그래도 없으면, 프리팹으로 새로 만듭니다! (소환!)
-    //        if (uiInstance == null && uiPrefab != null)
-    //        {
-    //            // 소환!
-    //            uiInstance = Instantiate(uiPrefab);
+        // 4. 긍정 효과 초기화 (주의: isLove 등은 유지해야 할 수도 있음 상황에 따라)
+        // 일단 기존 로직대로 초기화하되, 예약된 게 있다면 적용
+        // (여기서는 단순화를 위해 false 처리하셨던 기존 코드 유지)
+        isLove = false;
+        isConditionGood = false;
+        isLuckyDay = false;
 
-    //            // ★ 중요: 씬 이동해도 사라지지 않게 만듦
-    //            DontDestroyOnLoad(uiInstance.gameObject);
-    //        }
-    //    }
-
-    //    // 2. 만약 프리팹 연결도 안 해서 진짜로 없으면 포기
-    //    if (uiInstance == null)
-    //    {
-    //        Debug.LogWarning("UI 프리팹이 연결되지 않았습니다!");
-    //        return false;
-    //    }
-
-    //    if (isGuitarPainDay)
-    //    {
-    //        uiInstance.Show("손가락 통증!", "오늘 하루\n연습 경험치\n50% 감소");
-    //        return true;
-    //    }
-    //    else  if (isGuitarBlocked)
-    //    {
-    //        uiInstance.Show("기타줄 파손!", "오늘 하루\n기타 연습 불가능");
-    //        return true;
-    //    }
-    //    else if (isIdeaDrought)
-    //    {
-    //        uiInstance.Show("아이디어 고갈!", "오늘 하루\n작곡 경험치\n50% 감소");
-    //        return true;
-    //    }
-    //    else if (isCompositionBlocked)
-    //    {
-    //        uiInstance.Show("노트북 다운!", "오늘 하루\n작곡 불가능");
-    //        return true;
-    //    }
-    //    else if (isMaliciousComment)
-    //    {
-    //        uiInstance.Show("악플 폭주!", "오늘 하루\nSNS 경험치\n50% 감소");
-    //        return true;
-    //    }
-    //    else if (isSnsBlocked)
-    //    {
-    //        uiInstance.Show("게시물 삭제!", "오늘 하루\nSNS 관리 불가능");
-    //        return true;
-    //    }
-    //    else if (isFatigue)
-    //    {
-    //        uiInstance.Show("피로 누적!", "오늘 하루\n데이트 체력 감소");
-    //        return true;
-    //    }
-    //    else if (isBrawl)
-    //    {
-    //        uiInstance.Show("연인과 말다툼!", "연인 관계\n5 하락");
-    //        return true;
-    //    }
-    //    else if (isLove)
-    //    {
-    //        uiInstance.Show("연애 총합 상승!", "연인 관계\n10 상승");
-    //        return true;
-    //    }
-    //    else if (isConditionGood)
-    //    {
-    //        uiInstance.Show("컨디션 상승", "오늘 하루\n경험치 +1");
-    //        return true;
-    //    }
-    //    else if (isLove)
-    //    {
-    //        uiInstance.Show("긍정 이벤트", "다음 행동\n경험치 +2");
-    //        return true;
-    //    }
-
-    //    return false;
-    //}*/
+        // 만약 nextLove 등이 있다면 여기서 적용 로직 추가 가능
+        // 예: isLove = nextLove; nextLove = false;
+    }
 
     #endregion
 
@@ -507,54 +508,29 @@ public class GameManager : MonoBehaviour
             screenFader.PlayTransition(() =>
             {
                 // 화면이 어두워진 뒤 실행될 내용:
-                //CheckAndTriggerEvent(actionIdx);
+                CheckAndTriggerEvent(actionIdx);
                 // A. 시간/날짜 데이터 먼저 갱신 (UseTime 로직의 일부만 가져옴)
                 D_Time++;
                 if (D_Time > 2)
                 {
-                    
                     D_Time = 0;
                     D_Day--;
+
                     if (D_Day <= 0)
                     {
-                        //Ending(); 
                         Debug.Log("엔딩 조건 도달");
                         return;
                     }
-                    else
-                    {
-                        // 1. 하루 행동 기록 초기화
-                        dailyActionHistory.Clear();
 
-                        // 2. 예약된 디버프를 오늘자로 적용
-                        isGuitarPainDay = nextGuitarPain;
-                        isGuitarBlocked = nextGuitarBroken;
+                    // ★★★ [수정] 여기서 디버프를 적용하던 코드를 싹 다 삭제했습니다! ★★★
+                    // (isGuitarPainDay = nextGuitarPain... 등등 삭제)
+                    // (예약 변수 초기화 nextGuitarPain = false... 등등 삭제)
 
-                        isIdeaDrought = nextIdeaDrought;
-                        isCompositionBlocked = nextLaptopCrash;
+                    // 단지 "새 날이 되었다"는 깃발만 들어올립니다.
+                    isNewDayStart = true;
 
-                        isMaliciousComment = nextMaliciousComment;
-                        isSnsBlocked = nextPostDeleted;
-
-                        isFatigue = nextFatigue;
-                        isBrawl = nextBrawl;
-
-                        // 3. 예약 변수들은 다시 초기화 (일회성)
-                        nextGuitarPain = false; nextGuitarBroken = false;
-                        nextIdeaDrought = false; nextLaptopCrash = false;
-                        nextMaliciousComment = false; nextPostDeleted = false;
-                        nextFatigue = false;
-                        nextBrawl = false;
-
-                        //긍정 효과 초기화
-                        isLove = false;
-                        isConditionGood = false;
-                        isLuckyDay = false;
-
-                        isNewDayStart = true;
-                    }
-                    //CheckPositiveEvent();
-
+                    // 긍정 이벤트 추첨 (예약만 함)
+                    CheckPositiveEvent();
                 }
                 UpdateUI();
                 // B. 날짜가 바뀌었든 안 바뀌었든 '무조건' 씬 이동
@@ -654,29 +630,79 @@ public class GameManager : MonoBehaviour
     // 3. 씬 로딩이 완료되면(도착하면) 자동으로 실행되는 함수
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
 
+        //if (screenFader != null)
+        //{
+        //    screenFader.gameObject.SetActive(true);
+        //    screenFader.ForceFadeOut(() =>
+        //    {
+        //        if (isNewDayStart)
+        //        {
+        //            //bool isPopupShown = CheckAndShowEventUI();
+        //            isNewDayStart = false;
+        //            Time.timeScale = 1f;
+        //            //if (!isPopupShown) Time.timeScale = 1f;
+        //        }
+        //        else
+        //        {
+        //            Time.timeScale = 1f;
+        //        }
+        //    });
+        //}
+        //else
+        //{
+        //    Time.timeScale = 1f;
+        //}
+        //Time.timeScale = 0f;
+
+        //if (screenFader != null)
+        //{
+        //    screenFader.gameObject.SetActive(true);
+
+        //    // 페이드 아웃 (화면 밝아짐)
+        //    screenFader.ForceFadeOut(() =>
+        //    {
+        //        // 1. 새 날이 시작되었다면 팝업 띄우기 시도
+        //        if (isNewDayStart)
+        //        {
+        //            FindAndShowEventUI(); // 그냥 실행 (리턴값 필요 없음)
+        //            isNewDayStart = false;
+        //        }
+
+        //        // 2. ★★★ 팝업이 뜨든 말든, 이제 로딩 끝났으니 시간은 무조건 흐른다! ★★★
+        //        Time.timeScale = 1f;
+        //    });
+        //}
+        //else
+        //{
+        //    Time.timeScale = 1f;
+        //}
+
+        // 페이드 효과용 패널 켜기
         if (screenFader != null)
         {
             screenFader.gameObject.SetActive(true);
+
             screenFader.ForceFadeOut(() =>
             {
-                if (isNewDayStart)
+                // 현재 씬이 '메인 화면'일 때만
+                if (scene.name == mainSceneName)
                 {
-                    //bool isPopupShown = CheckAndShowEventUI();
-                    isNewDayStart = false;
-                    Time.timeScale = 1f;
-                    //if (!isPopupShown) Time.timeScale = 1f;
-                }
-                else
-                {
-                    Time.timeScale = 1f;
+                    // 새 날이 시작되었다면?
+                    if (isNewDayStart)
+                    {
+                        // ★★★ [중요] 여기서 디버프/버프를 실제로 적용합니다! ★★★
+                        // 이제서야 적용되므로, 아까 했던 저녁 미니게임은 무사합니다.
+                        ApplyNextDayEffects();
+
+                        // 적용된 상태를 바탕으로 팝업을 띄웁니다.
+                        FindAndShowEventUI();
+
+                        isNewDayStart = false; // 깃발 내리기
+                    }
                 }
             });
-        }
-        else
-        {
-            Time.timeScale = 1f;
         }
     }
     #endregion

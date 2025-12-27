@@ -108,7 +108,7 @@ public class Arrow_PlayerController : MonoBehaviour
         CancelInvoke("ResetPlayer"); // 진행 중인 리셋 예약 취소
 
         // [수정] 위치 설정: 원래 위치(originPosition)에서 Y축으로 2만큼 내림
-        transform.localPosition = originPosition + new Vector3(0, -1f, 0);
+        //transform.localPosition = originPosition + new Vector3(0, -1f, 0);
         if (ArrowGameManager.Instance.isGameOver && !ArrowGameManager.Instance.isGameclear)
         {
             // 실패 스프라이트 적용
