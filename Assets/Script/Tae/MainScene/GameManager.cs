@@ -91,6 +91,8 @@ public class GameManager : MonoBehaviour
     public string singerEndingScene = "Ending_Singer";   // 가수만 성공
     public string badEndingScene = "Ending_Bad";         // 백수 (모두 실패)
 
+    public int EndingNum;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -496,9 +498,9 @@ public class GameManager : MonoBehaviour
                 MoveToMiniGame("arrow", action);
                 break;
             case 2:
-                UseTime();
-                AddGauge("Composition", 10);
-                //MoveToMiniGame("Practice");
+                //UseTime();
+                //AddGauge("Composition", 10);
+                MoveToMiniGame("Puzzle", action);
                 break;
             case 3:
                 MoveToMiniGame("GuitarPractice", action);

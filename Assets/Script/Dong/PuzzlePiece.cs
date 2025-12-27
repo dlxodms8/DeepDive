@@ -45,7 +45,8 @@ public class PuzzlePiece : MonoBehaviour
 
             // 시각적 피드백 (선택 사항: 레이어를 바꿔서 다른 조각 아래로 가게 하거나 색상을 바꿈)
             Debug.Log($"{gameObject.name} 조각이 고정되었습니다!");
-
+            PuzzleManager.successPuzzle++;
+            Debug.Log(PuzzleManager.successPuzzle);
             // 스크립트를 아예 꺼버리고 싶다면 아래 주석을 해제하세요.
             // this.enabled = false; 
         }

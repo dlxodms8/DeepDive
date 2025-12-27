@@ -37,11 +37,11 @@ public class MiniGameGuitar : MonoBehaviour
     public GameObject backGroundPanel;
     public float maxGauge = 100;
     public Text GaugeText;
+    private bool InputButton = true;
 
     public Text FirstText;
     private float FirstTime = 3.5f;
     private bool FirstRunning = false;
-    private bool InputButton = true;
 
     public Animator animatorPlayer;
     public Animator animatorNPC;
