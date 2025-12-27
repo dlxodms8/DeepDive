@@ -7,6 +7,8 @@ public class GuitarClick : MonoBehaviour
     public int colorId;
     public MiniGameGuitar MiniGameGuitar;
 
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

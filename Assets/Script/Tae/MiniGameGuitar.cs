@@ -6,7 +6,7 @@ using UnityEditor.ShaderGraph.Drawing.Colors;
 using System.Threading;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
-
+using UnityEngine.Animations;
 public class MiniGameGuitar : MonoBehaviour
 {
 
@@ -29,7 +29,7 @@ public class MiniGameGuitar : MonoBehaviour
     public float currentScore = 0f; // 점수
 
     public Text timerText; // 남은 시간 텍스트
-    private float totalGameTime = 5f;  // 전체 제한 시간
+    private float totalGameTime = 30f;  // 전체 제한 시간
     private bool isTimerRunning = false; //정답 보여줄 때 시간 안흐름
 
     //결과창
@@ -43,9 +43,16 @@ public class MiniGameGuitar : MonoBehaviour
     private bool FirstRunning = false;
     private bool InputButton = true;
 
+    public Animator animatorPlayer;
+    public Animator animatorNPC;
+
+    private bool isRoundClearing = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        animatorPlayer = GameObject.Find("Player").GetComponent<Animator>();
+        animatorNPC = GameObject.Find("Npc").GetComponent<Animator>();
         StartCoroutine(FirstStart());
         InputButton = true;
     }
@@ -97,6 +104,7 @@ public class MiniGameGuitar : MonoBehaviour
 
     void StartRound()
     {
+        isRoundClearing = false;
 
         StopAllCoroutines();
 
@@ -171,24 +179,25 @@ public class MiniGameGuitar : MonoBehaviour
         }
 
         questionContainer.gameObject.SetActive(true);
-
+        animatorNPC.SetBool("First", true);
         yield return new WaitForSeconds(3.0f);
 
         questionContainer.gameObject.SetActive(false);
-
+        animatorNPC.SetBool("First", false);
         isInputActive = true;
         isTimerRunning = true;
     }
 
     public void CodeInput(int code)
     {
-        if(!isInputActive)
+        if(!isInputActive || isRoundClearing)
         {
             return;
         }
 
         if (questionSequence[inputCodeSum] == code)
         {
+            
             Debug.Log("정답!");
             spawnedImageObjects[inputCodeSum].SetActive(false);
 
@@ -196,6 +205,9 @@ public class MiniGameGuitar : MonoBehaviour
 
             if(inputCodeSum >= questionSequence.Count)
             {
+                isRoundClearing = true;
+
+                animatorPlayer.SetTrigger("Click");
                 isTimerRunning = false;
                 currentScore += 2;
                 currentRound++;

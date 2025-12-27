@@ -84,7 +84,11 @@ public class GameManager : MonoBehaviour
     public PopupUi uiPrefab;
     private PopupUi uiInstance;
 
-    
+    [Header("엔딩 씬 이름 설정")]
+    public string perfectEndingScene = "Ending_Perfect"; // 모두 성공
+    public string loveEndingScene = "Ending_Love";       // 연애만 성공
+    public string singerEndingScene = "Ending_Singer";   // 가수만 성공
+    public string badEndingScene = "Ending_Bad";         // 백수 (모두 실패)
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -156,7 +160,7 @@ public class GameManager : MonoBehaviour
         // 날짜 텍스트 갱신
         if (dayText != null)
         {
-            if (D_Day == 0) dayText.text = "D - Day";
+            if (D_Day == 0) dayText.text = "D-Day";
             else dayText.text = "D-" + D_Day;
         }
 
@@ -519,7 +523,7 @@ public class GameManager : MonoBehaviour
                     if (D_Day <= 0)
                     {
                         Debug.Log("엔딩 조건 도달");
-                        return;
+                        
                     }
 
                     // ★★★ [수정] 여기서 디버프를 적용하던 코드를 싹 다 삭제했습니다! ★★★
@@ -630,54 +634,6 @@ public class GameManager : MonoBehaviour
     // 3. 씬 로딩이 완료되면(도착하면) 자동으로 실행되는 함수
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        //Time.timeScale = 0f;
-
-        //if (screenFader != null)
-        //{
-        //    screenFader.gameObject.SetActive(true);
-        //    screenFader.ForceFadeOut(() =>
-        //    {
-        //        if (isNewDayStart)
-        //        {
-        //            //bool isPopupShown = CheckAndShowEventUI();
-        //            isNewDayStart = false;
-        //            Time.timeScale = 1f;
-        //            //if (!isPopupShown) Time.timeScale = 1f;
-        //        }
-        //        else
-        //        {
-        //            Time.timeScale = 1f;
-        //        }
-        //    });
-        //}
-        //else
-        //{
-        //    Time.timeScale = 1f;
-        //}
-        //Time.timeScale = 0f;
-
-        //if (screenFader != null)
-        //{
-        //    screenFader.gameObject.SetActive(true);
-
-        //    // 페이드 아웃 (화면 밝아짐)
-        //    screenFader.ForceFadeOut(() =>
-        //    {
-        //        // 1. 새 날이 시작되었다면 팝업 띄우기 시도
-        //        if (isNewDayStart)
-        //        {
-        //            FindAndShowEventUI(); // 그냥 실행 (리턴값 필요 없음)
-        //            isNewDayStart = false;
-        //        }
-
-        //        // 2. ★★★ 팝업이 뜨든 말든, 이제 로딩 끝났으니 시간은 무조건 흐른다! ★★★
-        //        Time.timeScale = 1f;
-        //    });
-        //}
-        //else
-        //{
-        //    Time.timeScale = 1f;
-        //}
 
         // 페이드 효과용 패널 켜기
         if (screenFader != null)
@@ -706,5 +662,44 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
+
+    public void CheckEnding()
+    {
+        bool isLoveSuccess = currentDateGauge >= 80;
+        int singerSuccessCount = 0;
+        if (currentPracticeGauge >= 80) singerSuccessCount++;    // 숙련도
+        if (currentCompositionGauge >= 80) singerSuccessCount++; // 곡 완성도
+        if (currentSnsGauge >= 80) singerSuccessCount++;         // 인지도
+
+        if (isLoveSuccess && singerSuccessCount == 3)
+        {
+            Debug.Log("결과: 진엔딩 (일과 사랑 모두 잡다!)");
+            
+        }
+        // [연애 성공, 가수 실패] : 연애 O + (가수 요소가 2개 이하일 때)
+        // *위의 if문에서 3개인 경우는 걸러졌으므로, 여기는 자연스럽게 2개 이하가 됩니다.
+        else if (isLoveSuccess)
+        {
+            Debug.Log("결과: 연애 엔딩 (가수는 실패했지만 사랑은 남았다)");
+            
+        }
+        // [연애 실패, 가수 성공] : 연애 X + 가수 요소 2개 이상 성공
+        else if (!isLoveSuccess && singerSuccessCount >= 2)
+        {
+            Debug.Log("결과: 가수 엔딩 (사랑은 잃었지만 탑스타가 되었다)");
+           
+        }
+        // [나머지 모든 경우] : 연애 X + 가수 요소 1개 이하
+        else
+        {
+            Debug.Log("결과: 배드 엔딩 (백수... 이도 저도 아니다)");
+            
+        }
+    }
+
+    public void ENDING()
+    {
+        SceneManager.LoadScene("Ending");
+    }
 }
 

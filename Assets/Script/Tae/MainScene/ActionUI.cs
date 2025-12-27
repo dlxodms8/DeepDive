@@ -15,9 +15,18 @@ public class ActionUI : MonoBehaviour
 
     public Coroutine currentCoroutine;
 
+    //행동 버튼
+    public GameObject Date;
+    public GameObject Sns;
+    public GameObject Composition;
+    public GameObject Practice;
+    //엔딩 버튼
+    public GameObject Ending;
+
     public void ShowPhone()
     {
         backGroundPanel.SetActive(true);
+        EndingButtonOn();
         MovePhone(showPosY);
     }
 
@@ -29,6 +38,7 @@ public class ActionUI : MonoBehaviour
 
     void MovePhone(float targetY)
     {
+        
         if(currentCoroutine != null)
         {
             StopCoroutine(currentCoroutine);
@@ -57,5 +67,18 @@ public class ActionUI : MonoBehaviour
     {
         yield return new WaitForSeconds(animationTime);
         backGroundPanel.SetActive(false); // 다 내려가면 배경 끄기
+    }
+
+    void EndingButtonOn()
+    {
+        if(GameManager.Instance.D_Day == 0)
+        {
+            Date.SetActive(false);
+            Sns.SetActive(false);
+            Composition.SetActive(false);
+            Practice.SetActive(false);
+            Ending.SetActive(true);
+            GameManager.Instance.CheckEnding();
+        }
     }
 }

@@ -115,10 +115,10 @@ TextureImporter:
       name: Male_hero_adle_0
       rect:
         serializedVersion: 2
-        x: 49
-        y: 5
-        width: 198
-        height: 275
+        x: 41
+        y: 3
+        width: 166
+        height: 230
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,10 +137,10 @@ TextureImporter:
       name: Male_hero_adle_1
       rect:
         serializedVersion: 2
-        x: 358
-        y: 5
-        width: 196
-        height: 275
+        x: 299
+        y: 3
+        width: 164
+        height: 230
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,10 +159,10 @@ TextureImporter:
       name: Male_hero_adle_2
       rect:
         serializedVersion: 2
-        x: 668
-        y: 5
-        width: 193
-        height: 272
+        x: 557
+        y: 3
+        width: 162
+        height: 228
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,10 +181,10 @@ TextureImporter:
       name: Male_hero_adle_3
       rect:
         serializedVersion: 2
-        x: 970
-        y: 5
-        width: 198
-        height: 272
+        x: 809
+        y: 3
+        width: 166
+        height: 228
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,10 +203,10 @@ TextureImporter:
       name: Male_hero_adle_4
       rect:
         serializedVersion: 2
-        x: 1277
-        y: 5
-        width: 198
-        height: 275
+        x: 1065
+        y: 3
+        width: 166
+        height: 230
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
