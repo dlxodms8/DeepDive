@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static UnityEngine.EventSystems.PointerEventData;
+using System.Collections;
 
 public class PuzzleManager : MonoBehaviour
 {
@@ -22,7 +23,8 @@ public class PuzzleManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        successPuzzle = 0;
+        StartCoroutine(StopAndGoRoutine());
     }
 
     // Update is called once per frame
@@ -69,6 +71,19 @@ public class PuzzleManager : MonoBehaviour
         GameManager.Instance.AddGauge("Composition", currentScore);
         Practicegauge.fillAmount = GameManager.Instance.currentCompositionGauge / maxGauge;
         GaugeText.text = GameManager.Instance.currentCompositionGauge + " / " + maxGauge;
+    }
+
+    IEnumerator StopAndGoRoutine()
+    {
+        // 1. 게임의 모든 움직임을 즉시 정지시킵니다.
+        Time.timeScale = 0f;
+
+        // 2. 정지된 상태로 0.8초(원하는 만큼 조절) 대기합니다.
+        // Time.timeScale이 0일 때는 Realtime을 써야 대기가 가능합니다.
+        yield return new WaitForSecondsRealtime(3f);
+
+        // 3. 시간을 다시 1로 돌려놓아야 다음 씬이 정상적으로 작동합니다.
+        Time.timeScale = 1f;
     }
 
     public void Exit()

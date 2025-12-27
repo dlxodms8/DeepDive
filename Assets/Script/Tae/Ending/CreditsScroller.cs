@@ -27,8 +27,8 @@ public class CreditsScroller : MonoBehaviour
     void Start()
     {
         StartCoroutine(StopAndGoRoutine());
-        //EndingSetting(GameManager.Instance.EndingNum);
-        EndingSetting(EndNum);
+        EndingSetting(GameManager.Instance.EndingNum);
+        //EndingSetting(EndNum);
     }
 
     void Update()
