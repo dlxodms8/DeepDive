@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    public float speed = 5f; // 바닥(Ground)의 speed와 똑같이 맞추세요!
+
+    public float speed = 7f; // 바닥(Ground)의 speed와 똑같이 맞추세요!
 
     void Update()
     {

@@ -3,7 +3,7 @@ using UnityEngine;
 public class ScrollingGround : MonoBehaviour
 {
     [Header("설정")]
-    public float speed = 5f;        // 이동 속도
+    public float speed = 9f;        // 이동 속도
     public float endX = -20f;       // 왼쪽 화면 밖 지점 (사라지는 곳)
     public float startX = 20f;      // 오른쪽 다시 나타날 지점 (생성되는 곳)
 
