@@ -7,6 +7,7 @@ public class run_TimeBar : MonoBehaviour
     public float maxTime = 60f;
     private float timeLeft;
     private bool isGameOver = false; // 게임 오버 중복 실행 방지
+    public static bool canSpawnObstacle = true;
 
     void Start()
     {
@@ -29,6 +30,11 @@ public class run_TimeBar : MonoBehaviour
             timeLeft = 0;
             TimeOver();
         }
+    }
+
+    public float GetTimeLeft()
+    {
+        return timeLeft;
     }
 
     void TimeOver()
