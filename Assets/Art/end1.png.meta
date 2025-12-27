@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: e3679e8d2b9ea274c88f0036c17f544b
+guid: 275b1ec1fee42894a8fd9c3aa2d6acd8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2645821033311253407
-    second: Male_hero__guitar_dance-Sheet_0
-  - first:
-      213: 5951845755457000319
-    second: Male_hero__guitar_dance-Sheet_1
-  - first:
-      213: -8762606749362845792
-    second: Male_hero__guitar_dance-Sheet_2
-  - first:
-      213: 4994601996017403124
-    second: Male_hero__guitar_dance-Sheet_3
+      213: -1990798653720611160
+    second: end1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,89 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Male_hero__guitar_dance-Sheet_0
+      name: end1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 256
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 1920
+        height: 1080
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 16cc932d9c7284bd0800000000000000
-      internalID: -2645821033311253407
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Male_hero__guitar_dance-Sheet_1
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 256
-        height: 256
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f735eeb2e24399250800000000000000
-      internalID: 5951845755457000319
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Male_hero__guitar_dance-Sheet_2
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 0
-        width: 256
-        height: 256
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0a789c57697f46680800000000000000
-      internalID: -8762606749362845792
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Male_hero__guitar_dance-Sheet_3
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 0
-        width: 256
-        height: 256
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4f403178d04605540800000000000000
-      internalID: 4994601996017403124
+      spriteID: 8a638a11c234f54e0800000000000000
+      internalID: -1990798653720611160
       vertices: []
       indices: 
       edges: []
@@ -200,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 33d06007f1f21834aabcc57c2deb0ae6
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -208,14 +133,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":256.0,"y":256.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      Male_hero__guitar_dance-Sheet_0: -2645821033311253407
-      Male_hero__guitar_dance-Sheet_1: 5951845755457000319
-      Male_hero__guitar_dance-Sheet_2: -8762606749362845792
-      Male_hero__guitar_dance-Sheet_3: 4994601996017403124
+      end1_0: -1990798653720611160
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

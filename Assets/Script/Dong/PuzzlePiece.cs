@@ -36,19 +36,38 @@ public class PuzzlePiece : MonoBehaviour
         CheckPosition();
     }
 
+    //void CheckPosition()
+    //{
+    //    if (Vector3.Distance(transform.position, targetPosition) < snapDistance)
+    //    {
+    //        transform.position = targetPosition;
+    //        isLocked = true; // 잠금 상태로 변경
+
+    //        // 시각적 피드백 (선택 사항: 레이어를 바꿔서 다른 조각 아래로 가게 하거나 색상을 바꿈)
+    //        Debug.Log($"{gameObject.name} 조각이 고정되었습니다!");
+    //        PuzzleManager.successPuzzle++;
+    //        Debug.Log(PuzzleManager.successPuzzle);
+    //        // 스크립트를 아예 꺼버리고 싶다면 아래 주석을 해제하세요.
+    //        // this.enabled = false; 
+    //    }
+    //}
+
     void CheckPosition()
     {
         if (Vector3.Distance(transform.position, targetPosition) < snapDistance)
         {
             transform.position = targetPosition;
-            isLocked = true; // 잠금 상태로 변경
+            isLocked = true;
 
-            // 시각적 피드백 (선택 사항: 레이어를 바꿔서 다른 조각 아래로 가게 하거나 색상을 바꿈)
+            // ? 핵심: 콜라이더를 꺼서 마우스 클릭이 이 조각을 통과하게 만듭니다.
+            // 이렇게 하면 이 조각 아래에 깔린 다른 조각을 클릭할 수 있습니다.
+            if (GetComponent<Collider2D>() != null)
+            {
+                GetComponent<Collider2D>().enabled = false;
+            }
+
             Debug.Log($"{gameObject.name} 조각이 고정되었습니다!");
             PuzzleManager.successPuzzle++;
-            Debug.Log(PuzzleManager.successPuzzle);
-            // 스크립트를 아예 꺼버리고 싶다면 아래 주석을 해제하세요.
-            // this.enabled = false; 
         }
     }
 
