@@ -677,32 +677,60 @@ public class GameManager : MonoBehaviour
         if (isLoveSuccess && singerSuccessCount == 3)
         {
             Debug.Log("결과: 진엔딩 (일과 사랑 모두 잡다!)");
-            
+            EndingNum = 3;
         }
         // [연애 성공, 가수 실패] : 연애 O + (가수 요소가 2개 이하일 때)
         // *위의 if문에서 3개인 경우는 걸러졌으므로, 여기는 자연스럽게 2개 이하가 됩니다.
         else if (isLoveSuccess)
         {
             Debug.Log("결과: 연애 엔딩 (가수는 실패했지만 사랑은 남았다)");
-            
+            EndingNum = 1;
         }
         // [연애 실패, 가수 성공] : 연애 X + 가수 요소 2개 이상 성공
         else if (!isLoveSuccess && singerSuccessCount >= 2)
         {
             Debug.Log("결과: 가수 엔딩 (사랑은 잃었지만 탑스타가 되었다)");
-           
+           EndingNum = 2;
         }
         // [나머지 모든 경우] : 연애 X + 가수 요소 1개 이하
         else
         {
             Debug.Log("결과: 배드 엔딩 (백수... 이도 저도 아니다)");
-            
+            EndingNum = 0;
         }
     }
 
     public void ENDING()
     {
         SceneManager.LoadScene("Ending");
+    }
+
+    public void ResetGameData()
+    {
+        // 1. 날짜 및 시간 초기화
+        D_Day = 15f;
+        D_Time = 0;
+
+        // 2. 모든 게이지 점수 초기화
+        currentDateGauge = 0f;
+        currentSnsGauge = 0f;
+        currentCompositionGauge = 0f;
+        currentPracticeGauge = 0f;
+
+        // 3. 모든 이벤트/디버프 상태 초기화
+        dailyActionHistory.Clear();
+        isGuitarPainDay = false; isIdeaDrought = false; isMaliciousComment = false;
+        isFatigue = false; isBrawl = false; isGuitarBlocked = false;
+        isCompositionBlocked = false; isSnsBlocked = false;
+
+        nextGuitarPain = false; nextGuitarBroken = false; nextIdeaDrought = false;
+        nextLaptopCrash = false; nextMaliciousComment = false; nextPostDeleted = false;
+        nextFatigue = false; nextBrawl = false; nextLove = false;
+
+        isConditionGood = false; isLuckyDay = false; isLove = false;
+        isNewDayStart = false;
+
+        Debug.Log("모든 게임 데이터가 초기화되었습니다.");
     }
 }
 

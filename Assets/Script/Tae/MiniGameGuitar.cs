@@ -203,7 +203,7 @@ public class MiniGameGuitar : MonoBehaviour
 
             inputCodeSum++;
 
-            if(inputCodeSum >= questionSequence.Count)
+            if(!isRoundClearing && inputCodeSum >= questionSequence.Count)
             {
                 isRoundClearing = true;
 

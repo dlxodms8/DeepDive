@@ -23,9 +23,14 @@ public class ActionUI : MonoBehaviour
     //엔딩 버튼
     public GameObject Ending;
 
+    public Image phoneButton;
+
     public void ShowPhone()
     {
         backGroundPanel.SetActive(true);
+        Color tempColor = phoneButton.color;
+        tempColor.a = 0;
+        phoneButton.color = tempColor;
         EndingButtonOn();
         MovePhone(showPosY);
     }
@@ -33,7 +38,11 @@ public class ActionUI : MonoBehaviour
     public void HidePhone()
     {
         MovePhone(hidePosY);
+        Color tempColor = phoneButton.color;
+        tempColor.a = 1;
+        phoneButton.color = tempColor;
         StartCoroutine(PanelAfterMove());
+
     }
 
     void MovePhone(float targetY)
