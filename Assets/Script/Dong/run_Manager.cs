@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using static UnityEngine.EventSystems.PointerEventData;
+using UnityEngine.UI;
 public class run_Manager : MonoBehaviour
 {
     public static run_Manager Instance;
@@ -23,6 +25,13 @@ public class run_Manager : MonoBehaviour
 
     private bool isShown = false;
     private bool isGameStopped = false;
+
+    //결과창
+    public Image Dategauge;
+    public GameObject backGroundPanel;
+    public float maxGauge = 100;
+    public Text GaugeText;
+    private bool InputButton = true;
 
     void Awake()
     {
@@ -98,11 +107,12 @@ public class run_Manager : MonoBehaviour
         }
     }
 
-    public void GameStop()
+    public void GameStop() //클리어
     {
         if (isGameStopped) return;
         isGameStopped = true;
 
+        Result();
       
 
         // 1. 시간 흐름 완전 정지 (배경, 이동, 애니메이션 모두 멈춤)
@@ -118,5 +128,40 @@ public class run_Manager : MonoBehaviour
         // 3. 플레이어 상태 변경
         Run_PlayerController player = Object.FindAnyObjectByType<Run_PlayerController>();
         if (player != null) player.OnTimeUp();
+
+
+    }
+
+    public void Result()
+    {
+        backGroundPanel.SetActive(true);
+        GameManager.Instance.AddGauge("Date", 10);
+        Dategauge.fillAmount = GameManager.Instance.currentDateGauge / maxGauge;
+        GaugeText.text = GameManager.Instance.currentDateGauge + " / " + maxGauge;
+    }
+
+    public void Exit()
+    {
+        if (InputButton)
+        {
+            InputButton = false;
+            GameManager.Instance.mainSceneName = "SampleScene";
+            //SceneManager.LoadScene("SampleScene");
+
+            if (GameManager.Instance != null && GameManager.Instance.screenFader != null)
+            {
+                // 1. "화면 좀 가려주세요(PlayTransition)"라고 부탁합니다.
+                GameManager.Instance.screenFader.PlayTransition(() =>
+                {
+                    // 2. 이 괄호 안의 내용은 "화면이 완전히 암전된 후"에 실행됩니다.
+                    SceneManager.LoadScene("SampleScene");
+                });
+            }
+            else
+            {
+                // 만약 매니저가 없거나 페이더가 없으면 그냥 바로 이동 (비상용)
+                SceneManager.LoadScene("SampleScene");
+            }
+        }
     }
 }

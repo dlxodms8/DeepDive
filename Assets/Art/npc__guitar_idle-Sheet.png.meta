@@ -1,22 +1,22 @@
 fileFormatVersion: 2
-guid: 04ffa472dc4713147ac2af49ea1deedd
+guid: 6334942447f7a1b4fbf9652453eb2ddb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1983316901278038520
-    second: Male_hero__guitar_idle1-Sheet_0
+      213: -2672829492009358844
+    second: npc__guitar_idle-Sheet_0
   - first:
-      213: -5729471488821499984
-    second: Male_hero__guitar_idle1-Sheet_1
+      213: 7059245958900622455
+    second: npc__guitar_idle-Sheet_1
   - first:
-      213: 8379762124722959431
-    second: Male_hero__guitar_idle1-Sheet_2
+      213: 7703668714496468307
+    second: npc__guitar_idle-Sheet_2
   - first:
-      213: 5016960189200430494
-    second: Male_hero__guitar_idle1-Sheet_3
+      213: -1867563022250128310
+    second: npc__guitar_idle-Sheet_3
   - first:
-      213: -6021525552946212052
-    second: Male_hero__guitar_idle1-Sheet_4
+      213: 2946315008907929420
+    second: npc__guitar_idle-Sheet_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -112,111 +112,111 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Male_hero__guitar_idle1-Sheet_0
+      name: npc__guitar_idle-Sheet_0
       rect:
         serializedVersion: 2
-        x: 41
-        y: 9
-        width: 168
-        height: 224
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 37
+        y: 1
+        width: 196
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8064b4e49c7d974e0800000000000000
-      internalID: -1983316901278038520
+      spriteID: 40a289ffcb338ead0800000000000000
+      internalID: -2672829492009358844
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Male_hero__guitar_idle1-Sheet_1
+      name: npc__guitar_idle-Sheet_1
       rect:
         serializedVersion: 2
-        x: 297
-        y: 9
-        width: 168
-        height: 226
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 293
+        y: 3
+        width: 196
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0b7e0167904dc70b0800000000000000
-      internalID: -5729471488821499984
+      spriteID: 77422625cca77f160800000000000000
+      internalID: 7059245958900622455
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Male_hero__guitar_idle1-Sheet_2
+      name: npc__guitar_idle-Sheet_2
       rect:
         serializedVersion: 2
-        x: 553
-        y: 9
-        width: 168
-        height: 222
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 549
+        y: 1
+        width: 196
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 744726a2145ea4470800000000000000
-      internalID: 8379762124722959431
+      spriteID: 3552ada41ede8ea60800000000000000
+      internalID: 7703668714496468307
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Male_hero__guitar_idle1-Sheet_3
+      name: npc__guitar_idle-Sheet_3
       rect:
         serializedVersion: 2
-        x: 809
-        y: 9
-        width: 168
-        height: 220
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 805
+        y: 1
+        width: 196
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e95719906b2df9540800000000000000
-      internalID: 5016960189200430494
+      spriteID: a4c402773551516e0800000000000000
+      internalID: -1867563022250128310
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Male_hero__guitar_idle1-Sheet_4
+      name: npc__guitar_idle-Sheet_4
       rect:
         serializedVersion: 2
-        x: 1065
-        y: 9
-        width: 168
-        height: 222
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        x: 1061
+        y: 1
+        width: 196
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c2314bab96e3f6ca0800000000000000
-      internalID: -6021525552946212052
+      spriteID: c47eb5ee3e963e820800000000000000
+      internalID: 2946315008907929420
       vertices: []
       indices: 
       edges: []
@@ -225,7 +225,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 70263736300c27c46921f6f9cf38916c
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -235,11 +235,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Male_hero__guitar_idle1-Sheet_0: -1983316901278038520
-      Male_hero__guitar_idle1-Sheet_1: -5729471488821499984
-      Male_hero__guitar_idle1-Sheet_2: 8379762124722959431
-      Male_hero__guitar_idle1-Sheet_3: 5016960189200430494
-      Male_hero__guitar_idle1-Sheet_4: -6021525552946212052
+      npc__guitar_idle-Sheet_0: -2672829492009358844
+      npc__guitar_idle-Sheet_1: 7059245958900622455
+      npc__guitar_idle-Sheet_2: 7703668714496468307
+      npc__guitar_idle-Sheet_3: -1867563022250128310
+      npc__guitar_idle-Sheet_4: 2946315008907929420
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

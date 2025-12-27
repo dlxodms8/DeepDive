@@ -44,16 +44,22 @@ public class Run_PlayerController : MonoBehaviour
     {
         if (isDamaged) return;
 
-        // ì í”„
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isSliding)
         {
             Jump();
         }
-
-        // ìŠ¬ë¼ì´ë”© ì‹œì‘ (Shiftë¥¼ ëˆ„ë¥´ëŠ” ìˆœê°„)
         if (Input.GetKeyDown(KeyCode.LeftShift) && isGrounded && !isJumping && !isSliding)
         {
             StartCoroutine(SlideRoutine());
+        }
+
+        // ½½¶óÀÌµù µµÁß Á¡ÇÁ¸¦ ´©¸£¸é ½½¶óÀÌµùÀ» Ãë¼ÒÇÏ°í Á¡ÇÁÇÏ°Ô ÇÏ·Á¸é ¾Æ·¡ ·ÎÁ÷ Ãß°¡
+
+        if (Input.GetKeyDown(KeyCode.Space) && isSliding)
+        {
+            StopAllCoroutines();
+            ExitSlide();
+            Jump();
         }
     }
 
@@ -63,32 +69,25 @@ public class Run_PlayerController : MonoBehaviour
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         isGrounded = false;
         isJumping = true;
-        
+
     }
 
     IEnumerator SlideRoutine()
     {
         isSliding = true;
-
-        // âœ… ë‹¨ì¼ íŠ¸ë¦¬ê±° "Slide" í˜¸ì¶œ
         anim.SetTrigger("Slide");
 
+        // Äİ¶óÀÌ´õ Å©±â Á¶Àı ¹× À§Ä¡(Offset) Á¶Á¤
         capsuleCollider.size = new Vector2(originalColliderSize.x, originalColliderSize.y * 0.5f);
-        float targetY = defaultY - slideYDownPos;
+        capsuleCollider.offset = new Vector2(0, originalColliderSize.y * 0.005f); // Áß½ÉÁ¡À» ¾Æ·¡·Î ³»¸²
 
-        // Shiftë¥¼ ê¾¹ ëˆ„ë¥´ê³  ìˆëŠ” ë™ì•ˆ ë£¨í”„ ìœ ì§€
         while (Input.GetKey(KeyCode.LeftShift))
         {
             if (isDamaged) break;
-
-            if (transform.position.y > targetY)
-            {
-                transform.position = new Vector3(transform.position.x, transform.position.y - slideSpeed * Time.deltaTime, transform.position.z);
-            }
+            // À§Ä¡¸¦ Á÷Á¢ »©´Â ÄÚµå ´ë½Å ¹°¸® ¿£Áø¿¡ ¸Ã±â°Å³ª ¾Ö´Ï¸ŞÀÌ¼ÇÀ¸·Î Ã³¸® ±ÇÀå
             yield return null;
         }
 
-        // Shiftë¥¼ ë–¼ê±°ë‚˜ ë°ë¯¸ì§€ë¥¼ ì…ì—ˆì„ ë•Œ ì²˜ë¦¬
         if (!isDamaged)
         {
             ExitSlide();
@@ -97,14 +96,11 @@ public class Run_PlayerController : MonoBehaviour
 
     void ExitSlide()
     {
-        // ì›ë˜ ë†’ì´ë¡œ ë³µêµ¬
-        transform.position = new Vector3(transform.position.x, defaultY, transform.position.z);
+        // ¼ø°£ÀÌµ¿ ÄÚµå Á¦°Å (¹°¸® Èå¸§ ¹æÇØ ¹æÁö)
         capsuleCollider.size = originalColliderSize;
+        capsuleCollider.offset = Vector2.zero; // ¿ÀÇÁ¼Â º¹±¸
 
-        // âœ… ë‹¤ì‹œ "Slide" íŠ¸ë¦¬ê±°ë¥¼ ì‘ë™ì‹œì¼œ Run ìƒíƒœë¡œ ì „ì´í•˜ê±°ë‚˜, 
-        // ì• ë‹ˆë©”ì´í„° ì„¤ì •ì— ë”°ë¼ "Run" íŠ¸ë¦¬ê±°ë¥¼ ëª…ì‹œì ìœ¼ë¡œ í˜¸ì¶œí•©ë‹ˆë‹¤.
         anim.SetTrigger("Run");
-
         isSliding = false;
     }
 
@@ -114,7 +110,7 @@ public class Run_PlayerController : MonoBehaviour
         {
             isGrounded = true;
             isJumping = false;
-            defaultY = transform.position.y; // í˜„ì¬ ì§€ë©´ ë†’ì´ ê°±ì‹ 
+            defaultY = transform.position.y; // ÇöÀç Áö¸é ³ôÀÌ °»½Å
         }
     }
 
@@ -178,19 +174,19 @@ public class Run_PlayerController : MonoBehaviour
         isInvincible = false;
     }
 
-    public void OnTimeUp() 
+    public void OnTimeUp()
     {
-        // 1ï¸âƒ£ ì…ë ¥ ì°¨ë‹¨ìš© ìƒíƒœ ë³€ê²½
+        // 1?? ÀÔ·Â Â÷´Ü¿ë »óÅÂ º¯°æ
         isDamaged = true;
         isSliding = false;
         isJumping = false;
 
-        // 2ï¸âƒ£ ë¬¼ë¦¬ ì´ë™ ì™„ì „ ì •ì§€
+        // 2?? ¹°¸® ÀÌµ¿ ¿ÏÀü Á¤Áö
         rb.linearVelocity = Vector2.zero;
         rb.simulated = false;
 
-        // 3ï¸âƒ£ ì• ë‹ˆë©”ì´ì…˜ ì •ì§€ (ì„ íƒ)
+        // 3?? ¾Ö´Ï¸ŞÀÌ¼Ç Á¤Áö (¼±ÅÃ)
         if (anim != null)
             anim.enabled = false;
     }
-}
+    }

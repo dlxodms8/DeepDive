@@ -488,9 +488,9 @@ public class GameManager : MonoBehaviour
         switch (action)
         {
             case 0:
-                UseTime();
-                AddGauge("Date", 10);
-                //MoveToMiniGame("Practice");
+                //UseTime();
+                //AddGauge("Date", 10);
+                MoveToMiniGame("Run", action);
                 break;
             case 1:
                 //UseTime();
