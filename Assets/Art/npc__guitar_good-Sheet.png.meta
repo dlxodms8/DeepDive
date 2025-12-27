@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: 4bd9d86755e3b324ebb587dc1690e2d1
+guid: 39408064b43ccab41a2ee45f4d8c3d63
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5155870964891618175
-    second: dance_down_0
+      213: 4330878272582735861
+    second: npc__guitar_good-Sheet_0
+  - first:
+      213: 7989913532039927489
+    second: npc__guitar_good-Sheet_1
+  - first:
+      213: 2352308240454173171
+    second: npc__guitar_good-Sheet_2
+  - first:
+      213: 2307641699709349888
+    second: npc__guitar_good-Sheet_3
+  - first:
+      213: -9027474332919175870
+    second: npc__guitar_good-Sheet_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +112,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dance_down_0
+      name: npc__guitar_good-Sheet_0
       rect:
         serializedVersion: 2
-        x: 43
-        y: 3
-        width: 314
-        height: 326
+        x: 37
+        y: 1
+        width: 196
+        height: 234
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +127,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 18472e5acaaa278b0800000000000000
-      internalID: -5155870964891618175
+      spriteID: 5f750cac7de5a1c30800000000000000
+      internalID: 4330878272582735861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc__guitar_good-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 3
+        width: 196
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c693576600e1ee60800000000000000
+      internalID: 7989913532039927489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc__guitar_good-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 549
+        y: 1
+        width: 196
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f1ce72b1e315a020800000000000000
+      internalID: 2352308240454173171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc__guitar_good-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 1
+        width: 196
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 000fd0446e3660020800000000000000
+      internalID: 2307641699709349888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc__guitar_good-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 1061
+        y: 1
+        width: 196
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 245656f7ce7f7b280800000000000000
+      internalID: -9027474332919175870
       vertices: []
       indices: 
       edges: []
@@ -135,7 +235,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dance_down_0: -5155870964891618175
+      npc__guitar_good-Sheet_0: 4330878272582735861
+      npc__guitar_good-Sheet_1: 7989913532039927489
+      npc__guitar_good-Sheet_2: 2352308240454173171
+      npc__guitar_good-Sheet_3: 2307641699709349888
+      npc__guitar_good-Sheet_4: -9027474332919175870
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

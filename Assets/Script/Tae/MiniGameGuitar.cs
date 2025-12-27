@@ -208,21 +208,24 @@ public class MiniGameGuitar : MonoBehaviour
                 isRoundClearing = true;
 
                 animatorPlayer.SetTrigger("Click");
+                animatorNPC.SetTrigger("Good");
                 isTimerRunning = false;
                 currentScore += 2;
                 currentRound++;
 
-                Invoke("StartRound", 0.5f);
+                Invoke("StartRound", 1.0f);
             }
         }
         else
         {
+            isInputActive = false;
+
+            // 2. Bad 애니메이션 실행
+            animatorNPC.SetTrigger("Bad");
             Debug.Log("땡! 틀렸습니다. 라운드 재시작!");
-            StartRound();
-            //isInputActive = false;
-            //isTimerRunning = false;
-            //inputCodeSum = 0;
-            //StartCoroutine(ShowQuestionRoutine());
+
+            // 3. ★ 핵심 수정: 바로 StartRound를 하지 않고, 1초(애니메이션 시간) 뒤에 실행합니다.
+            Invoke("StartRound", 1.0f);
         }
     }
     void GameClear()

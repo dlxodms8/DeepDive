@@ -96,7 +96,7 @@ public class Arrow_PlayerController : MonoBehaviour
     public void OnGameClear()
     {
         isClear = true;
-        Debug.Log("Game Clear! OnTimeUp will be ignored.");
+        
     }
 
     // 추가: 시간이 종료되었을 때 매니저에서 호출할 함수
@@ -119,6 +119,6 @@ public class Arrow_PlayerController : MonoBehaviour
         if (GetComponent<Animator>() != null)
             GetComponent<Animator>().enabled = false;
 
-        Debug.Log("Time Up! Player moved down and changed to fail sprite.");
+        
     }
 }

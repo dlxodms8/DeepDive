@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: 4bd9d86755e3b324ebb587dc1690e2d1
+guid: a1c0ac05ea22d6345a668024adc54ba7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5155870964891618175
-    second: dance_down_0
+      213: 6477961248293111958
+    second: npc__guitar_bad-Sheet_0
+  - first:
+      213: 7774016292706773053
+    second: npc__guitar_bad-Sheet_1
+  - first:
+      213: -4110292884308903134
+    second: npc__guitar_bad-Sheet_2
+  - first:
+      213: 907612269113626629
+    second: npc__guitar_bad-Sheet_3
+  - first:
+      213: 7842460750129551635
+    second: npc__guitar_bad-Sheet_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +112,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dance_down_0
+      name: npc__guitar_bad-Sheet_0
       rect:
         serializedVersion: 2
-        x: 43
-        y: 3
-        width: 314
-        height: 326
+        x: 37
+        y: 1
+        width: 196
+        height: 234
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +127,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 18472e5acaaa278b0800000000000000
-      internalID: -5155870964891618175
+      spriteID: 698c1410f6756e950800000000000000
+      internalID: 6477961248293111958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc__guitar_bad-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 293
+        y: 3
+        width: 196
+        height: 236
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d38e2e431aad2eb60800000000000000
+      internalID: 7774016292706773053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc__guitar_bad-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 549
+        y: 1
+        width: 196
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22bb3f3266e45f6c0800000000000000
+      internalID: -4110292884308903134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc__guitar_bad-Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 1
+        width: 196
+        height: 232
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 500dd4ecc8c789c00800000000000000
+      internalID: 907612269113626629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: npc__guitar_bad-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 1061
+        y: 1
+        width: 196
+        height: 234
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3195a68408406dc60800000000000000
+      internalID: 7842460750129551635
       vertices: []
       indices: 
       edges: []
@@ -135,7 +235,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dance_down_0: -5155870964891618175
+      npc__guitar_bad-Sheet_0: 6477961248293111958
+      npc__guitar_bad-Sheet_1: 7774016292706773053
+      npc__guitar_bad-Sheet_2: -4110292884308903134
+      npc__guitar_bad-Sheet_3: 907612269113626629
+      npc__guitar_bad-Sheet_4: 7842460750129551635
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

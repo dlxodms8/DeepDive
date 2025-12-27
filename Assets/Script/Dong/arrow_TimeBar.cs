@@ -32,7 +32,7 @@ public class arrow_TimeBar : MonoBehaviour
     void TimeOver()
     {
         ArrowGameManager.Instance.isGameOver = true;
-        Debug.Log("게임 오버!");
+        
 
         // 1. 씬에서 Arro_PlayerController를 찾아서 OnTimeUp 함수 호출
         Arrow_PlayerController player = Object.FindAnyObjectByType<Arrow_PlayerController>();

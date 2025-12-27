@@ -61,7 +61,7 @@ public class ArrowGameManager : MonoBehaviour
         if (scoreSlider != null)
         {
             scoreSlider.value = currentScore;
-            Debug.Log($"점수 증가! 현재 점수: {currentScore}");
+            
         }
 
         if (currentScore >= maxScore)

@@ -73,10 +73,10 @@ public class ActionUI : MonoBehaviour
     {
         if(GameManager.Instance.D_Day == 0)
         {
-            Date.SetActive(false);
-            Sns.SetActive(false);
-            Composition.SetActive(false);
-            Practice.SetActive(false);
+            Destroy(Date);
+            Destroy(Sns);
+            Destroy(Composition);
+            Destroy(Practice);
             Ending.SetActive(true);
             GameManager.Instance.CheckEnding();
         }
