@@ -25,10 +25,10 @@ public class CreditsScroller : MonoBehaviour
     void Start()
     {
         // 1. 엔딩 데이터 세팅
-        //EndingSetting(GameManager.Instance.EndingNum);
-        EndingSetting(1);
+        EndingSetting(GameManager.Instance.EndingNum);
+        
         // 2. 초기 시작 위치 (화면 밖 아래에서 대기)
-        contentRect.anchoredPosition = new Vector2(0, -600f);
+        contentRect.anchoredPosition = new Vector2(0, -500f);
 
         StartCoroutine(StopAndGoRoutine());
     }
@@ -69,10 +69,10 @@ public class CreditsScroller : MonoBehaviour
         switch (EndingNum)
         {
             case 0: // 백수
-                endingText.text = "…조금 늦어버렸네요.\n사랑도, 무대도, 아무것도 남지 않았습니다.\n하지만 괜찮아요.\n인생은 언제든 다시 시작할 수 있으니까요.";
+                endingText.text = "…조금 늦어버렸네요.\n사랑도, 무대도,\n아무것도 남지 않았습니다.\n하지만 괜찮아요.\n인생은 언제든\n다시 시작할 수 있으니까요.";
                 break;
             case 1: // 연애
-                endingText.text = "축하합니다!\n당신은 결국, 가장 소중한 사람의 마음을 지켜냈습니다.\n무대는 비어 있었지만\n두 사람 사이에는 음악이 흐르고 있었네요.";
+                endingText.text = "축하합니다!\n당신은 결국, 가장 소중한\n사람의 마음을 지켜냈습니다.\n무대는 비어 있었지만\n두 사람 사이에는\n음악이 흐르고 있었네요.";
                 break;
             case 2: // 가수
                 endingText.text = "관객의 함성이 무대를 가득 채웁니다.\n당신은 꿈꾸던 가수가 되었습니다.\n다만,\n객석 한 자리가 비어 있는 것 같네요.";

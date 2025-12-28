@@ -55,7 +55,7 @@ public class PuzzleManager : MonoBehaviour
 
     void GameClear()
     {
-        currentScore = 10f;
+        currentScore = 15f;
         Result();
     }
 

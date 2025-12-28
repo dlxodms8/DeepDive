@@ -135,7 +135,7 @@ public class run_Manager : MonoBehaviour
     public void Result()
     {
         backGroundPanel.SetActive(true);
-        GameManager.Instance.AddGauge("Date", 10);
+        GameManager.Instance.AddGauge("Date", 15);
         Dategauge.fillAmount = GameManager.Instance.currentDateGauge / maxGauge;
         GaugeText.text = GameManager.Instance.currentDateGauge + " / " + maxGauge;
     }
@@ -144,6 +144,7 @@ public class run_Manager : MonoBehaviour
     {
         if (InputButton)
         {
+            Time.timeScale = 1f;
             InputButton = false;
             GameManager.Instance.mainSceneName = "SampleScene";
             //SceneManager.LoadScene("SampleScene");

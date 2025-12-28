@@ -11,8 +11,8 @@ public class ArrowGameManager : MonoBehaviour
     public Slider scoreSlider;
 
     [Header("¼³Á¤")]
-    public float maxScore = 10f;
-    public float scorePerStage = 2f;
+    public float maxScore = 15f;
+    public float scorePerStage = 3f;
     
     public float currentScore = 0f;
     public bool isGameclear = false;

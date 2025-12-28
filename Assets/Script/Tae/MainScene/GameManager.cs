@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     public float currentPracticeGauge = 0f;
 
     [Header("게임 날짜 및 시간")]
-    public float D_Day = 15f;
+    public float D_Day = 7f;
     public int D_Time = 0;
 
     public Image timeImage;
@@ -78,7 +78,9 @@ public class GameManager : MonoBehaviour
     public bool isConditionGood = false; // 컨디션 상승 (모든 경험치 +1)
     public bool isLuckyDay = false;      // 긍정 이벤트 (추가 보너스 +2)
     public bool isLove = false;          // 연애 총합 상승(연애 관계 +10)
-    
+    public bool nextConditionGood = false;
+    public bool nextLuckyDay = false;
+
 
     private bool isNewDayStart = false;
 
@@ -95,6 +97,11 @@ public class GameManager : MonoBehaviour
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
+    {
+        UpdateUI();
+    }
+
+    private void Update()
     {
         UpdateUI();
     }
@@ -329,7 +336,7 @@ public class GameManager : MonoBehaviour
         if (uniqueActions == 3)
         {
             float dice = Random.Range(0f, 100f);
-            if (dice < 25f) // 5% 당첨
+            if (dice < 20f) // 25% 당첨
             {
                 TriggerPositiveEvent();
             }
@@ -338,27 +345,21 @@ public class GameManager : MonoBehaviour
 
     void TriggerPositiveEvent()
     {
-        int randomEvent = Random.Range(0, 3); // 0, 1, 2 중 하나
+        int randomEvent = Random.Range(0, 3);
 
         switch (randomEvent)
         {
             case 0: // 연애 총합 상승
-                // 다음날 아침 팝업을 위해 예약 변수를 켭니다.
-                nextLove = true;
-                // 점수도 미리 올려줍니다.
-                AddGauge("Date", 10f); 
+                nextLove = true; // 예약
+                AddGauge("Date", 3f); // 점수는 미리 올려도 무방 (연출은 다음날)
                 break;
 
             case 1: // 컨디션 상승
-                // 다음날 아침 적용을 위해 바로 켜지 않고 예약 변수가 없다면...
-                // 여기서는 로직상 isConditionGood을 바로 켜도 되지만, 
-                // "다음날 적용" 원칙을 위해 보통 next 변수를 씁니다.
-                // 일단 기존 변수대로 isConditionGood을 켜두고, 초기화 로직에서 관리합니다.
-                isConditionGood = true;
+                nextConditionGood = true; // 예약 변수 사용! (isConditionGood 직접 켜지 않음)
                 break;
 
             case 2: // 추가 보너스 (행운의 날)
-                isLuckyDay = true;
+                nextLuckyDay = true; // 예약 변수 사용!
                 break;
         }
     }
@@ -401,15 +402,18 @@ public class GameManager : MonoBehaviour
         // 2. 긍정 이벤트
         else if (isLove)
         {
+            Debug.Log("연애 종합 상승");
             popup.Show("연애 총합 상승!", "연인 관계\n10 상승");
         }
         else if (isLuckyDay)
         {
-            popup.Show("행운의 날!", "다음 행동\n경험치 +2");
+            Debug.Log("행운의 날");
+            popup.Show("행운의 날!", "다음 행동\n경험치 +4");
         }
         else if (isConditionGood)
         {
-            popup.Show("컨디션 상승", "오늘 하루\n경험치 +1");
+            Debug.Log("컨디션 상승");
+            popup.Show("컨디션 상승", "오늘 하루\n경험치 +2");
         }
         // 3. 일반 디버프
         else if (isGuitarPainDay)
@@ -436,11 +440,9 @@ public class GameManager : MonoBehaviour
 
     void ApplyNextDayEffects()
     {
-        // 1. 하루 행동 기록 초기화
         dailyActionHistory.Clear();
 
-        // 2. 예약된(next) 디버프를 오늘(current)로 적용
-        // (MoveToMiniGame에서 가져온 코드들)
+        // 디버프 적용 (기존 코드 유지)
         isGuitarPainDay = nextGuitarPain;
         isGuitarBlocked = nextGuitarBroken;
         isIdeaDrought = nextIdeaDrought;
@@ -450,21 +452,20 @@ public class GameManager : MonoBehaviour
         isFatigue = nextFatigue;
         isBrawl = nextBrawl;
 
-        // 3. 예약 변수들은 다시 초기화 (일회성)
+        // ★ 긍정 이벤트 적용 추가 ★
+        isLove = nextLove;
+        isConditionGood = nextConditionGood;
+        isLuckyDay = nextLuckyDay;
+
+        // 예약 변수들 초기화 (다음날 또 중복 적용 방지)
         nextGuitarPain = false; nextGuitarBroken = false;
         nextIdeaDrought = false; nextLaptopCrash = false;
         nextMaliciousComment = false; nextPostDeleted = false;
         nextFatigue = false; nextBrawl = false;
 
-        // 4. 긍정 효과 초기화 (주의: isLove 등은 유지해야 할 수도 있음 상황에 따라)
-        // 일단 기존 로직대로 초기화하되, 예약된 게 있다면 적용
-        // (여기서는 단순화를 위해 false 처리하셨던 기존 코드 유지)
-        isLove = false;
-        isConditionGood = false;
-        isLuckyDay = false;
-
-        // 만약 nextLove 등이 있다면 여기서 적용 로직 추가 가능
-        // 예: isLove = nextLove; nextLove = false;
+        nextLove = false; // 긍정 예약 초기화
+        nextConditionGood = false;
+        nextLuckyDay = false;
     }
 
     #endregion
@@ -558,14 +559,18 @@ public class GameManager : MonoBehaviour
         //버프 적용
         if (isConditionGood)
         {
-            Debug.Log("컨디션 좋음! 경험치 +1");
-            amount += 1f;
+            Debug.Log("컨디션 좋음! 경험치 +2");
+            Debug.Log(amount);
+            amount += 2f;
+            Debug.Log(amount);
         }
 
         if (isLuckyDay)
         {
-            Debug.Log("행운의 날! 추가 보너스 +2");
-            amount += 2f;
+            Debug.Log("행운의 날! 추가 보너스 +4");
+            Debug.Log(amount);
+            amount += 4f;
+            Debug.Log(amount);
             isLuckyDay = false;
         }
 
@@ -670,9 +675,9 @@ public class GameManager : MonoBehaviour
     {
         bool isLoveSuccess = currentDateGauge >= 80;
         int singerSuccessCount = 0;
-        if (currentPracticeGauge >= 80) singerSuccessCount++;    // 숙련도
-        if (currentCompositionGauge >= 80) singerSuccessCount++; // 곡 완성도
-        if (currentSnsGauge >= 80) singerSuccessCount++;         // 인지도
+        if (currentPracticeGauge >= 75) singerSuccessCount++;    // 숙련도
+        if (currentCompositionGauge >= 75) singerSuccessCount++; // 곡 완성도
+        if (currentSnsGauge >= 75) singerSuccessCount++;         // 인지도
 
         if (isLoveSuccess && singerSuccessCount == 3)
         {
@@ -708,7 +713,7 @@ public class GameManager : MonoBehaviour
     public void ResetGameData()
     {
         // 1. 날짜 및 시간 초기화
-        D_Day = 15f;
+        D_Day = 7f;
         D_Time = 0;
 
         // 2. 모든 게이지 점수 초기화

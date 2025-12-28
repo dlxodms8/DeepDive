@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Drawing.Colors;
 using System.Threading;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
@@ -215,7 +214,7 @@ public class MiniGameGuitar : MonoBehaviour
                 animatorPlayer.SetTrigger("Click");
                 animatorNPC.SetTrigger("Good");
                 isTimerRunning = false;
-                currentScore += 2;
+                currentScore += 3;
                 currentRound++;
 
                 Invoke("StartRound", 1.0f);
